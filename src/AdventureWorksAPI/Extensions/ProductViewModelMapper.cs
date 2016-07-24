@@ -14,5 +14,14 @@ namespace AdventureWorksAPI.Extensions
                 ProductNumber = entity.ProductNumber
             };
         }
+
+        public static Product ToEntity(this ProductViewModel viewModel)
+        {
+            return viewModel == null ? null : new Product
+            {
+                Name = viewModel.ProductName,
+                ProductNumber = viewModel.ProductNumber
+            };
+        }
     }
 }

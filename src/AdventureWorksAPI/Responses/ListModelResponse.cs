@@ -5,11 +5,6 @@ namespace AdventureWorksAPI.Responses
 {
     public class ListModelResponse<TModel> : IListModelResponse<TModel>
     {
-        public ListModelResponse()
-        {
-
-        }
-
         public String Message { get; set; }
 
         public Boolean DidError { get; set; }

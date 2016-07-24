@@ -11,7 +11,7 @@ namespace AdventureWorksAPI.Models
             ConnectionString = appSettings.Value.ConnectionString;
         }
 
-        public String ConnectionString { get; set; }
+        public String ConnectionString { get; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

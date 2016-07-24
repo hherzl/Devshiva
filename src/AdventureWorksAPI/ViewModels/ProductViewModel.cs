@@ -4,11 +4,6 @@ namespace AdventureWorksAPI.ViewModels
 {
     public class ProductViewModel
     {
-        public ProductViewModel()
-        {
-
-        }
-
         public Int32? ProductID { get; set; }
 
         public String ProductName { get; set; }

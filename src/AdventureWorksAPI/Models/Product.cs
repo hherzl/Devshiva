@@ -4,11 +4,6 @@ namespace AdventureWorksAPI.Models
 {
     public class Product
     {
-        public Product()
-        {
-
-        }
-
         public Int32? ProductID { get; set; }
 
         public String Name { get; set; }

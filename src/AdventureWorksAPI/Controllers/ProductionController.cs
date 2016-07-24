@@ -32,7 +32,7 @@ namespace AdventureWorksAPI.Controllers
         // GET Production/Product
         [HttpGet]
         [Route("Product")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetProducts(String name)
         {
             var response = new ListModelResponse<ProductViewModel>() as IListModelResponse<ProductViewModel>;
 
@@ -40,7 +40,7 @@ namespace AdventureWorksAPI.Controllers
             {
                 response.Model = await Task.Run(() =>
                 {
-                    return AdventureWorksRepository.GetProducts().Select(item => item.ToViewModel()).ToList();
+                    return AdventureWorksRepository.GetProducts(name).Select(item => item.ToViewModel()).ToList();
                 });
 
                 response.Message = String.Format("Total of records: {0}", response.Model.Count());
@@ -57,7 +57,7 @@ namespace AdventureWorksAPI.Controllers
         // GET Production/Product/5
         [HttpGet]
         [Route("Product/{id}")]
-        public async Task<IActionResult> Get(Int32 id)
+        public async Task<IActionResult> GetProduct(Int32 id)
         {
             var response = new SingleModelResponse<ProductViewModel>() as ISingleModelResponse<ProductViewModel>;
 
@@ -67,6 +67,84 @@ namespace AdventureWorksAPI.Controllers
                 {
                     return AdventureWorksRepository.GetProduct(id).ToViewModel();
                 });
+            }
+            catch (Exception ex)
+            {
+                response.DidError = true;
+                response.ErrorMessage = ex.Message;
+            }
+
+            return response.ToHttpResponse();
+        }
+
+        // POST Production/Product/
+        [HttpPost]
+        [Route("Product")]
+        public async Task<IActionResult> CreateProduct(ProductViewModel value)
+        {
+            var response = new SingleModelResponse<ProductViewModel>() as ISingleModelResponse<ProductViewModel>;
+
+            try
+            {
+                var entity = await Task.Run(() =>
+                {
+                    return AdventureWorksRepository.AddProduct(value.ToEntity());
+                });
+
+                response.Model = entity.ToViewModel();
+                response.Message = "The data was saved successfully";
+            }
+            catch (Exception ex)
+            {
+                response.DidError = true;
+                response.ErrorMessage = ex.Message;
+            }
+
+            return response.ToHttpResponse();
+        }
+
+        // PUT Production/Product/5
+        [HttpPut]
+        [Route("Product/{id}")]
+        public async Task<IActionResult> UpdateProduct(Int32 id, ProductViewModel value)
+        {
+            var response = new SingleModelResponse<ProductViewModel>() as ISingleModelResponse<ProductViewModel>;
+
+            try
+            {
+                var entity = await Task.Run(() =>
+                {
+                    return AdventureWorksRepository.UpdateProduct(id, value.ToEntity());
+                });
+
+                response.Model = entity.ToViewModel();
+                response.Message = "The record was updated successfully";
+            }
+            catch (Exception ex)
+            {
+                response.DidError = true;
+                response.ErrorMessage = ex.Message;
+            }
+
+            return response.ToHttpResponse();
+        }
+
+        // DELETE Production/Product/5
+        [HttpDelete]
+        [Route("Product/{id}")]
+        public async Task<IActionResult> DeleteProduct(Int32 id)
+        {
+            var response = new SingleModelResponse<ProductViewModel>() as ISingleModelResponse<ProductViewModel>;
+
+            try
+            {
+                var entity = await Task.Run(() =>
+                {
+                    return AdventureWorksRepository.DeleteProduct(id);
+                });
+
+                response.Model = entity.ToViewModel();
+                response.Message = "The record was deleted successfully";
             }
             catch (Exception ex)
             {
