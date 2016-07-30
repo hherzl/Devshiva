@@ -32,15 +32,31 @@ namespace AdventureWorksAPI.Controllers
         // GET Production/Product
         [HttpGet]
         [Route("Product")]
-        public async Task<IActionResult> GetProducts(String name)
+        public async Task<IActionResult> GetProducts(Int32? pageSize, Int32? pageNumber, String name)
         {
+            if (!pageSize.HasValue)
+            {
+                pageSize = 10;
+            }
+
+            if (!pageNumber.HasValue)
+            {
+                pageNumber = 1;
+            }
+
             var response = new ListModelResponse<ProductViewModel>() as IListModelResponse<ProductViewModel>;
 
             try
             {
+                response.PageSize = (Int32)pageSize;
+                response.PageNumber = (Int32)pageNumber;
+
                 response.Model = await Task.Run(() =>
                 {
-                    return AdventureWorksRepository.GetProducts(name).Select(item => item.ToViewModel()).ToList();
+                    return AdventureWorksRepository
+                        .GetProducts(response.PageSize, response.PageNumber, name)
+                        .Select(item => item.ToViewModel())
+                        .ToList();
                 });
 
                 response.Message = String.Format("Total of records: {0}", response.Model.Count());

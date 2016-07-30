@@ -27,15 +27,11 @@ namespace AdventureWorksAPI.Models
             }
         }
 
-        public IEnumerable<Product> GetProducts(String name)
+        public IEnumerable<Product> GetProducts(Int32 pageSize, Int32 pageNumber, String name)
         {
-            var query = DbContext.Set<Product>().AsQueryable();
-
-            if (String.IsNullOrEmpty(name))
-            {
-                query = query.OrderByDescending(item => item.ProductID).Take(100);
-            }
-            else
+            var query = DbContext.Set<Product>().AsQueryable().Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            
+            if (!String.IsNullOrEmpty(name))
             {
                 query = query.Where(item => item.Name.ToLower().Contains(name.ToLower()));
             }

@@ -11,6 +11,10 @@ namespace AdventureWorksAPI.Responses
 
         public String ErrorMessage { get; set; }
 
+        public Int32 PageSize { get; set; }
+
+        public Int32 PageNumber { get; set; }
+
         public IEnumerable<TModel> Model { get; set; }
     }
 }

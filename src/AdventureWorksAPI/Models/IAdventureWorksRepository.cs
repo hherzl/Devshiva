@@ -5,7 +5,7 @@ namespace AdventureWorksAPI.Models
 {
     public interface IAdventureWorksRepository : IDisposable
     {
-        IEnumerable<Product> GetProducts(String name);
+        IEnumerable<Product> GetProducts(Int32 pageSize, Int32 pageNumber, String name);
 
         Product GetProduct(Int32? id);
 
