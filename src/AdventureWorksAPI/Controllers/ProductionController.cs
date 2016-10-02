@@ -32,18 +32,8 @@ namespace AdventureWorksAPI.Controllers
         // GET Production/Product
         [HttpGet]
         [Route("Product")]
-        public async Task<IActionResult> GetProducts(Int32? pageSize, Int32? pageNumber, String name)
+        public async Task<IActionResult> GetProducts(Int32? pageSize = 10, Int32? pageNumber = 1, String name = null)
         {
-            if (!pageSize.HasValue)
-            {
-                pageSize = 10;
-            }
-
-            if (!pageNumber.HasValue)
-            {
-                pageNumber = 1;
-            }
-
             var response = new ListModelResponse<ProductViewModel>() as IListModelResponse<ProductViewModel>;
 
             try
