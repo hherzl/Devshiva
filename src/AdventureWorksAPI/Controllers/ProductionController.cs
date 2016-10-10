@@ -103,7 +103,7 @@ namespace AdventureWorksAPI.Controllers
             catch (Exception ex)
             {
                 response.DidError = true;
-                response.ErrorMessage = ex.Message;
+                response.ErrorMessage = ex.ToString();
             }
 
             return response.ToHttpResponse();
