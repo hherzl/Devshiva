@@ -5,25 +5,23 @@ using AdventureWorksAPI.Models;
 using AdventureWorksAPI.Responses;
 using AdventureWorksAPI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Xunit;
 
 namespace AdventureWorksAPI.Tests
 {
     public class ProductionControllerTest
     {
-        String AdventureWorksConnectionString
+        private IAdventureWorksRepository AdventureWorksRepository
         {
             get
             {
-                return "server=(local);database=AdventureWorks2012;integrated security=yes;";
-            }
-        }
+                var appSettings = Options.Create(new AppSettings
+                {
+                    ConnectionString = "server=(local);database=AdventureWorks2012;integrated security=yes;"
+                });
 
-        IAdventureWorksRepository AdventureWorksRepository
-        {
-            get
-            {
-                return new AdventureWorksRepository(new AdventureWorksDbContext(AdventureWorksConnectionString)) as IAdventureWorksRepository;
+                return new AdventureWorksRepository(new AdventureWorksDbContext(appSettings)) as IAdventureWorksRepository;
             }
         }
 
@@ -66,7 +64,7 @@ namespace AdventureWorksAPI.Tests
             var viewModel = new ProductViewModel
             {
                 ProductName = "New product",
-                ProductNumber = "024688"
+                ProductNumber = "98765"
             };
 
             // Act
@@ -91,7 +89,7 @@ namespace AdventureWorksAPI.Tests
             var viewModel = new ProductViewModel
             {
                 ProductName = "New name for product",
-                ProductNumber = "33669922"
+                ProductNumber = "12345"
             };
 
             // Act

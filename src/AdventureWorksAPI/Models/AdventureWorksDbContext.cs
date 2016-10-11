@@ -11,11 +11,6 @@ namespace AdventureWorksAPI.Models
             ConnectionString = appSettings.Value.ConnectionString;
         }
 
-        public AdventureWorksDbContext(String connectionString)
-        {
-            ConnectionString = connectionString;
-        }
-
         public String ConnectionString { get; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
