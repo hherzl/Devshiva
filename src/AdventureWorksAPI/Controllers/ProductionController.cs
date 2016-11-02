@@ -86,7 +86,7 @@ namespace AdventureWorksAPI.Controllers
         // POST Production/Product/
         [HttpPost]
         [Route("Product")]
-        public async Task<IActionResult> CreateProduct(ProductViewModel value)
+        public async Task<IActionResult> CreateProduct([FromBody]ProductViewModel value)
         {
             var response = new SingleModelResponse<ProductViewModel>() as ISingleModelResponse<ProductViewModel>;
 
@@ -112,7 +112,7 @@ namespace AdventureWorksAPI.Controllers
         // PUT Production/Product/5
         [HttpPut]
         [Route("Product/{id}")]
-        public async Task<IActionResult> UpdateProduct(Int32 id, ProductViewModel value)
+        public async Task<IActionResult> UpdateProduct(Int32 id, [FromBody]ProductViewModel value)
         {
             var response = new SingleModelResponse<ProductViewModel>() as ISingleModelResponse<ProductViewModel>;
 

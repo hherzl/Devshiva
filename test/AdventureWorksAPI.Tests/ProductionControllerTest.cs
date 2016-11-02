@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AdventureWorksAPI.Controllers;
 using AdventureWorksAPI.Models;
 using AdventureWorksAPI.Responses;
@@ -72,8 +71,6 @@ namespace AdventureWorksAPI.Tests
 
             // Assert
             var value = response.Value as ISingleModelResponse<ProductViewModel>;
-
-            Console.WriteLine("error: {0}", value.ErrorMessage);
 
             Assert.False(value.DidError);
         }
