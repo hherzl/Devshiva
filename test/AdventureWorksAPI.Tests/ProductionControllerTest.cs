@@ -20,7 +20,9 @@ namespace AdventureWorksAPI.Tests
                     ConnectionString = "server=(local);database=AdventureWorks2012;integrated security=yes;"
                 });
 
-                return new AdventureWorksRepository(new AdventureWorksDbContext(appSettings)) as IAdventureWorksRepository;
+                var entityMapper = new AdventureWorksEntityMapper() as IEntityMapper;
+
+                return new AdventureWorksRepository(new AdventureWorksDbContext(appSettings, entityMapper)) as IAdventureWorksRepository;
             }
         }
 
@@ -62,8 +64,8 @@ namespace AdventureWorksAPI.Tests
 
             var viewModel = new ProductViewModel
             {
-                ProductName = "New product",
-                ProductNumber = "98765"
+                ProductName = "New test product",
+                ProductNumber = "ABCDE"
             };
 
             // Act
@@ -85,8 +87,8 @@ namespace AdventureWorksAPI.Tests
 
             var viewModel = new ProductViewModel
             {
-                ProductName = "New name for product",
-                ProductNumber = "12345"
+                ProductName = "New product test II",
+                ProductNumber = "XYZ"
             };
 
             // Act

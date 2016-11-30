@@ -2,9 +2,9 @@
 
 namespace AdventureWorksAPI.Models
 {
-    public static class ProductMap
+    public class ProductMap : IEntityMap
     {
-        public static ModelBuilder MapProduct(this ModelBuilder modelBuilder)
+        public void Map(ModelBuilder modelBuilder)
         {
             var entity = modelBuilder.Entity<Product>();
 
@@ -13,8 +13,6 @@ namespace AdventureWorksAPI.Models
             entity.HasKey(p => new { p.ProductID });
 
             entity.Property(p => p.ProductID).UseSqlServerIdentityColumn();
-
-            return modelBuilder;
         }
     }
 }

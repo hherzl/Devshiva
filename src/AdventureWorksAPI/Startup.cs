@@ -30,6 +30,7 @@ namespace AdventureWorksAPI
 
             services.AddEntityFrameworkSqlServer().AddDbContext<AdventureWorksDbContext>();
 
+            services.AddScoped<IEntityMapper, AdventureWorksEntityMapper>();
             services.AddScoped<IAdventureWorksRepository, AdventureWorksRepository>();
 
             services.AddOptions();

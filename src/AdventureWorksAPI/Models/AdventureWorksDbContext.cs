@@ -6,12 +6,16 @@ namespace AdventureWorksAPI.Models
 {
     public class AdventureWorksDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
-        public AdventureWorksDbContext(IOptions<AppSettings> appSettings)
+        public AdventureWorksDbContext(IOptions<AppSettings> appSettings, IEntityMapper entityMapper)
         {
             ConnectionString = appSettings.Value.ConnectionString;
+
+            EntityMapper = entityMapper;
         }
 
         public String ConnectionString { get; }
+
+        public IEntityMapper EntityMapper { get; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -22,7 +26,7 @@ namespace AdventureWorksAPI.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.MapProduct();
+            EntityMapper.MapEntities(modelBuilder);
 
             base.OnModelCreating(modelBuilder);
         }
