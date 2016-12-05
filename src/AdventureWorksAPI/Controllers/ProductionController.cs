@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AdventureWorksAPI.Core.DataLayer;
 using AdventureWorksAPI.Extensions;
-using AdventureWorksAPI.Models;
 using AdventureWorksAPI.Responses;
 using AdventureWorksAPI.ViewModels;
 using Microsoft.AspNetCore.Mvc;

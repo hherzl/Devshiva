@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AdventureWorksAPI.Models
+namespace AdventureWorksAPI.Core.DataLayer
 {
     public class AppSettings
     {

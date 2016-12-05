@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace AdventureWorksAPI.Models
+namespace AdventureWorksAPI.Core.DataLayer
 {
     public class AdventureWorksDbContext : Microsoft.EntityFrameworkCore.DbContext
     {

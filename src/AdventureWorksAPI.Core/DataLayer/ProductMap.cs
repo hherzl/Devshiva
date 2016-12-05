@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AdventureWorksAPI.Core.EntityLayer;
+using Microsoft.EntityFrameworkCore;
 
-namespace AdventureWorksAPI.Models
+namespace AdventureWorksAPI.Core.DataLayer
 {
     public class ProductMap : IEntityMap
     {

@@ -1,6 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AdventureWorksAPI.Controllers;
-using AdventureWorksAPI.Models;
+using AdventureWorksAPI.Core.DataLayer;
 using AdventureWorksAPI.Responses;
 using AdventureWorksAPI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,8 @@ namespace AdventureWorksAPI.Tests
         {
             get
             {
+                // Mocking dependencies
+
                 var appSettings = Options.Create(new AppSettings
                 {
                     ConnectionString = "server=(local);database=AdventureWorks2012;integrated security=yes;"
@@ -46,9 +49,26 @@ namespace AdventureWorksAPI.Tests
         {
             // Arrange
             var controller = new ProductionController(AdventureWorksRepository);
+            var id = 1;
 
             // Act
-            var response = await controller.GetProduct(1) as ObjectResult;
+            var response = await controller.GetProduct(id) as ObjectResult;
+
+            // Assert
+            var value = response.Value as ISingleModelResponse<ProductViewModel>;
+
+            Assert.False(value.DidError);
+        }
+
+        [Fact]
+        public async Task Production_GetNonExistingProductAsync()
+        {
+            // Arrange
+            var controller = new ProductionController(AdventureWorksRepository);
+            var id = 0;
+
+            // Act
+            var response = await controller.GetProduct(id) as ObjectResult;
 
             // Assert
             var value = response.Value as ISingleModelResponse<ProductViewModel>;
@@ -64,8 +84,8 @@ namespace AdventureWorksAPI.Tests
 
             var viewModel = new ProductViewModel
             {
-                ProductName = "New test product",
-                ProductNumber = "ABCDE"
+                ProductName = String.Format("New test product {0}{1}{2}", DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond),
+                ProductNumber = String.Format("{0}{1}{2}", DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond)
             };
 
             // Act
@@ -105,7 +125,6 @@ namespace AdventureWorksAPI.Tests
         {
             // Arrange
             var controller = new ProductionController(AdventureWorksRepository);
-
             var id = 1000;
 
             // Act

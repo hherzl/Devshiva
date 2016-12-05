@@ -1,4 +1,4 @@
-﻿using AdventureWorksAPI.Models;
+﻿using AdventureWorksAPI.Core.EntityLayer;
 using AdventureWorksAPI.ViewModels;
 
 namespace AdventureWorksAPI.Extensions

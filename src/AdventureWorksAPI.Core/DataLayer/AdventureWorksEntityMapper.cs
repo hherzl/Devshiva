@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AdventureWorksAPI.Models
+namespace AdventureWorksAPI.Core.DataLayer
 {
     public class AdventureWorksEntityMapper : EntityMapper
     {

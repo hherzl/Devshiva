@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace AdventureWorksAPI.Models
+namespace AdventureWorksAPI.Core.DataLayer
 {
     public interface IEntityMapper
     {

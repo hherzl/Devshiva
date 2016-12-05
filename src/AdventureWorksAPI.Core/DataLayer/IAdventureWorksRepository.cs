@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using AdventureWorksAPI.Core.EntityLayer;
 
-namespace AdventureWorksAPI.Models
+namespace AdventureWorksAPI.Core.DataLayer
 {
     public interface IAdventureWorksRepository : IDisposable
     {

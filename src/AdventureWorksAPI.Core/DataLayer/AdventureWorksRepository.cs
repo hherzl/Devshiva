@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdventureWorksAPI.Core.EntityLayer;
 
-namespace AdventureWorksAPI.Models
+namespace AdventureWorksAPI.Core.DataLayer
 {
     public class AdventureWorksRepository : IAdventureWorksRepository
     {

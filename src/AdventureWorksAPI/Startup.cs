@@ -1,4 +1,4 @@
-﻿using AdventureWorksAPI.Models;
+﻿using AdventureWorksAPI.Core.DataLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -26,7 +26,10 @@ namespace AdventureWorksAPI
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc().AddJsonOptions(a => a.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
+
+            services
+                .AddMvc()
+                .AddJsonOptions(a => a.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
 
             services.AddEntityFrameworkSqlServer().AddDbContext<AdventureWorksDbContext>();
 
