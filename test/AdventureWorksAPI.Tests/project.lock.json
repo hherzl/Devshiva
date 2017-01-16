@@ -685,6 +685,22 @@
           "lib/netstandard1.3/Microsoft.AspNetCore.Server.Kestrel.dll": {}
         }
       },
+      "Microsoft.AspNetCore.StaticFiles/1.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Hosting.Abstractions": "1.0.0",
+          "Microsoft.AspNetCore.Http.Extensions": "1.0.0",
+          "Microsoft.Extensions.FileProviders.Abstractions": "1.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "1.0.0",
+          "Microsoft.Extensions.WebEncoders": "1.0.0"
+        },
+        "compile": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.StaticFiles.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.StaticFiles.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.WebUtilities/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -1133,6 +1149,19 @@
         },
         "runtime": {
           "lib/netstandard1.0/Microsoft.Extensions.FileProviders.Composite.dll": {}
+        }
+      },
+      "Microsoft.Extensions.FileProviders.Embedded/1.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.FileProviders.Abstractions": "1.0.0",
+          "System.Runtime.Extensions": "4.1.0"
+        },
+        "compile": {
+          "lib/netstandard1.0/Microsoft.Extensions.FileProviders.Embedded.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/Microsoft.Extensions.FileProviders.Embedded.dll": {}
         }
       },
       "Microsoft.Extensions.FileProviders.Physical/1.0.0": {
@@ -1862,6 +1891,58 @@
             "assetType": "native",
             "rid": "win7-x86"
           }
+        }
+      },
+      "Swashbuckle/6.0.0-beta902": {
+        "type": "package",
+        "dependencies": {
+          "Swashbuckle.Swagger": "6.0.0-beta902",
+          "Swashbuckle.SwaggerGen": "6.0.0-beta902",
+          "Swashbuckle.SwaggerUi": "6.0.0-beta902"
+        }
+      },
+      "Swashbuckle.Swagger/6.0.0-beta902": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc.Core": "1.0.0",
+          "Microsoft.AspNetCore.Mvc.Formatters.Json": "1.0.0"
+        },
+        "compile": {
+          "lib/netstandard1.6/Swashbuckle.Swagger.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.6/Swashbuckle.Swagger.dll": {}
+        }
+      },
+      "Swashbuckle.SwaggerGen/6.0.0-beta902": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc.ApiExplorer": "1.0.0",
+          "Microsoft.AspNetCore.Mvc.Core": "1.0.0",
+          "Microsoft.AspNetCore.Mvc.DataAnnotations": "1.0.0",
+          "Swashbuckle.Swagger": "6.0.0-beta902",
+          "System.Xml.XPath": "4.0.1"
+        },
+        "compile": {
+          "lib/netstandard1.6/Swashbuckle.SwaggerGen.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.6/Swashbuckle.SwaggerGen.dll": {}
+        }
+      },
+      "Swashbuckle.SwaggerUi/6.0.0-beta902": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc.Core": "1.0.0",
+          "Microsoft.AspNetCore.StaticFiles": "1.0.0",
+          "Microsoft.Extensions.FileProviders.Embedded": "1.0.0",
+          "System.Xml.XPath": "4.0.1"
+        },
+        "compile": {
+          "lib/netstandard1.6/Swashbuckle.SwaggerUi.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.6/Swashbuckle.SwaggerUi.dll": {}
         }
       },
       "System.AppContext/4.1.0": {
@@ -3845,7 +3926,7 @@
           "System.Xml.ReaderWriter": "4.0.11"
         },
         "compile": {
-          "ref/netstandard1.3/_._": {}
+          "ref/netstandard1.3/System.Xml.XPath.dll": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.dll": {}
@@ -4030,7 +4111,8 @@
           "Microsoft.Extensions.Logging.Console": "1.0.0",
           "Microsoft.Extensions.Logging.Debug": "1.0.0",
           "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
-          "Microsoft.NETCore.App": "1.0.0"
+          "Microsoft.NETCore.App": "1.0.0",
+          "Swashbuckle": "6.0.0-beta902"
         },
         "compile": {
           "netcoreapp1.0/AdventureWorksAPI.dll": {}
@@ -4552,6 +4634,19 @@
         "lib/netstandard1.3/Microsoft.AspNetCore.Server.Kestrel.xml"
       ]
     },
+    "Microsoft.AspNetCore.StaticFiles/1.0.0": {
+      "sha512": "pXiUBJtpO0fIlGEg/ESykhbIZ2+I+9Y+3qXzN19zZDDF+tD88eATg3A5MHMXu/VmqaROLfvpGJmJ6uOLUGsBVQ==",
+      "type": "package",
+      "path": "Microsoft.AspNetCore.StaticFiles/1.0.0",
+      "files": [
+        "Microsoft.AspNetCore.StaticFiles.1.0.0.nupkg.sha512",
+        "Microsoft.AspNetCore.StaticFiles.nuspec",
+        "lib/net451/Microsoft.AspNetCore.StaticFiles.dll",
+        "lib/net451/Microsoft.AspNetCore.StaticFiles.xml",
+        "lib/netstandard1.3/Microsoft.AspNetCore.StaticFiles.dll",
+        "lib/netstandard1.3/Microsoft.AspNetCore.StaticFiles.xml"
+      ]
+    },
     "Microsoft.AspNetCore.WebUtilities/1.0.0": {
       "sha512": "D0licSnS1JgqQ/gYlN41wXbeYG3dFIdjY781YzMHZ5gBB7kczacshW+H6plZkXRr/cCnAJWGa31o1R8c5GEy/A==",
       "type": "package",
@@ -4925,6 +5020,17 @@
         "Microsoft.Extensions.FileProviders.Composite.nuspec",
         "lib/netstandard1.0/Microsoft.Extensions.FileProviders.Composite.dll",
         "lib/netstandard1.0/Microsoft.Extensions.FileProviders.Composite.xml"
+      ]
+    },
+    "Microsoft.Extensions.FileProviders.Embedded/1.0.0": {
+      "sha512": "mMCI3/BLXAyBCDneqOI4ohETd0IXjbXZdoiCm1dYdnOdV193ByEOCFQ6/Vn9RVdU5UlC4Nn1P4J5Df7pXG/vGg==",
+      "type": "package",
+      "path": "Microsoft.Extensions.FileProviders.Embedded/1.0.0",
+      "files": [
+        "Microsoft.Extensions.FileProviders.Embedded.1.0.0.nupkg.sha512",
+        "Microsoft.Extensions.FileProviders.Embedded.nuspec",
+        "lib/netstandard1.0/Microsoft.Extensions.FileProviders.Embedded.dll",
+        "lib/netstandard1.0/Microsoft.Extensions.FileProviders.Embedded.xml"
       ]
     },
     "Microsoft.Extensions.FileProviders.Physical/1.0.0": {
@@ -5583,6 +5689,48 @@
         "runtime.win7-x86.runtime.native.System.Data.SqlClient.sni.4.0.1.nupkg.sha512",
         "runtime.win7-x86.runtime.native.System.Data.SqlClient.sni.nuspec",
         "runtimes/win7-x86/native/sni.dll"
+      ]
+    },
+    "Swashbuckle/6.0.0-beta902": {
+      "sha512": "jEGtMQ6pl/q6ZGB6fVkp6F830qDDNOa6QekFjanI7brmftDTv7TAFNoAjosKGH11SFO3D1g+A2UY45bskseqFQ==",
+      "type": "package",
+      "path": "Swashbuckle/6.0.0-beta902",
+      "files": [
+        "Swashbuckle.6.0.0-beta902.nupkg.sha512",
+        "Swashbuckle.nuspec"
+      ]
+    },
+    "Swashbuckle.Swagger/6.0.0-beta902": {
+      "sha512": "DAA0nU/XCLXjir9EPScRWjUBhTT88iS+2f9wQz5av524FhMAJOVG/N/vNvXj8QPObQdnK3ttW7k/wyota73yOQ==",
+      "type": "package",
+      "path": "Swashbuckle.Swagger/6.0.0-beta902",
+      "files": [
+        "Swashbuckle.Swagger.6.0.0-beta902.nupkg.sha512",
+        "Swashbuckle.Swagger.nuspec",
+        "lib/net451/Swashbuckle.Swagger.dll",
+        "lib/netstandard1.6/Swashbuckle.Swagger.dll"
+      ]
+    },
+    "Swashbuckle.SwaggerGen/6.0.0-beta902": {
+      "sha512": "zSHFHSf6KJ7yNwsYAibd1z0fqLVpueeax8wVwyLSZvMiUkfrNGnX/NhXKSzVltuGm3b52k7sG05mL9nwY3YvIA==",
+      "type": "package",
+      "path": "Swashbuckle.SwaggerGen/6.0.0-beta902",
+      "files": [
+        "Swashbuckle.SwaggerGen.6.0.0-beta902.nupkg.sha512",
+        "Swashbuckle.SwaggerGen.nuspec",
+        "lib/net451/Swashbuckle.SwaggerGen.dll",
+        "lib/netstandard1.6/Swashbuckle.SwaggerGen.dll"
+      ]
+    },
+    "Swashbuckle.SwaggerUi/6.0.0-beta902": {
+      "sha512": "qdxsxIw55cFGbng2F10soyS/eJK4MZW/M7jjoQIxUxOdpe+hG2EmNwWXijEPMwJJ5qcpB/QOc766LHtFPx9Ucg==",
+      "type": "package",
+      "path": "Swashbuckle.SwaggerUi/6.0.0-beta902",
+      "files": [
+        "Swashbuckle.SwaggerUi.6.0.0-beta902.nupkg.sha512",
+        "Swashbuckle.SwaggerUi.nuspec",
+        "lib/net451/Swashbuckle.SwaggerUi.dll",
+        "lib/netstandard1.6/Swashbuckle.SwaggerUi.dll"
       ]
     },
     "System.AppContext/4.1.0": {

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AdventureWorksAPI.Controllers
 {
-    [Route("api/Production")]
+    [Route("api/[controller]")]
     public class ProductionController : Controller
     {
         private IAdventureWorksRepository AdventureWorksRepository;
@@ -21,15 +21,19 @@ namespace AdventureWorksAPI.Controllers
 
         protected override void Dispose(Boolean disposing)
         {
-            if (AdventureWorksRepository != null)
-            {
-                AdventureWorksRepository.Dispose();
-            }
+            AdventureWorksRepository?.Dispose();
 
             base.Dispose(disposing);
         }
 
         // GET Production/Product
+        /// <summary>
+        /// Retrieves a list of products
+        /// </summary>
+        /// <param name="pageSize">Page size</param>
+        /// <param name="pageNumber">Page number</param>
+        /// <param name="name">Name</param>
+        /// <returns>List response</returns>
         [HttpGet]
         [Route("Product")]
         public async Task<IActionResult> GetProducts(Int32? pageSize = 10, Int32? pageNumber = 1, String name = null)
@@ -61,6 +65,11 @@ namespace AdventureWorksAPI.Controllers
         }
 
         // GET Production/Product/5
+        /// <summary>
+        /// Retrieves a specific product by id
+        /// </summary>
+        /// <param name="id">Product ID</param>
+        /// <returns>Single response</returns>
         [HttpGet]
         [Route("Product/{id}")]
         public async Task<IActionResult> GetProduct(Int32 id)
@@ -84,6 +93,11 @@ namespace AdventureWorksAPI.Controllers
         }
 
         // POST Production/Product/
+        /// <summary>
+        /// Creates a new product on Production catalog
+        /// </summary>
+        /// <param name="value">Product entry</param>
+        /// <returns>Single response</returns>
         [HttpPost]
         [Route("Product")]
         public async Task<IActionResult> CreateProduct([FromBody]ProductViewModel value)
@@ -110,6 +124,12 @@ namespace AdventureWorksAPI.Controllers
         }
 
         // PUT Production/Product/5
+        /// <summary>
+        /// Updates an existing product
+        /// </summary>
+        /// <param name="id">Product ID</param>
+        /// <param name="value">Product entry</param>
+        /// <returns>Single response</returns>
         [HttpPut]
         [Route("Product/{id}")]
         public async Task<IActionResult> UpdateProduct(Int32 id, [FromBody]ProductViewModel value)
@@ -136,6 +156,11 @@ namespace AdventureWorksAPI.Controllers
         }
 
         // DELETE Production/Product/5
+        /// <summary>
+        /// Delete an existing product
+        /// </summary>
+        /// <param name="id">Product ID</param>
+        /// <returns>Single response</returns>
         [HttpDelete]
         [Route("Product/{id}")]
         public async Task<IActionResult> DeleteProduct(Int32 id)

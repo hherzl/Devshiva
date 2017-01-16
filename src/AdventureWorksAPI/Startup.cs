@@ -1,10 +1,13 @@
-﻿using AdventureWorksAPI.Core.DataLayer;
+﻿using System.IO;
+using AdventureWorksAPI.Core.DataLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.PlatformAbstractions;
 using Newtonsoft.Json.Serialization;
+using Swashbuckle.Swagger.Model;
 
 namespace AdventureWorksAPI
 {
@@ -41,6 +44,29 @@ namespace AdventureWorksAPI
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             services.AddSingleton<IConfiguration>(Configuration);
+
+            services.AddSwaggerGen();
+
+            services.ConfigureSwaggerGen(options =>
+            {
+                options.SingleApiVersion(new Info
+                {
+                    Version = "v1",
+                    Title = "AdventureWorks API",
+                    Description = "A simple example ASP.NET Core Web API",
+                    TermsOfService = "None",
+                    Contact = new Contact { Name = "C. Herzl", Email = "", Url = "https://twitter.com/hherzl" },
+                    License = new License { Name = "Use under LICX", Url = "http://url.com" }
+                });
+
+                //Determine base path for the application.
+                var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+
+                //Set the comments path for the swagger json and ui.
+                var xmlPath = Path.Combine(basePath, "AdventureWorksAPI.xml");
+
+                options.IncludeXmlComments(xmlPath);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +76,10 @@ namespace AdventureWorksAPI
             loggerFactory.AddDebug();
 
             app.UseMvc();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUi();
         }
     }
 }
