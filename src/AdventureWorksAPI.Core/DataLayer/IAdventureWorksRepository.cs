@@ -1,19 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using AdventureWorksAPI.Core.EntityLayer;
 
 namespace AdventureWorksAPI.Core.DataLayer
 {
     public interface IAdventureWorksRepository : IDisposable
     {
-        IEnumerable<Product> GetProducts(Int32 pageSize, Int32 pageNumber, String name);
+        IQueryable<Product> GetProducts(Int32 pageSize, Int32 pageNumber, String name);
 
-        Product GetProduct(Int32? id);
+        Task<Product> GetProductAsync(Product entity);
 
-        Product AddProduct(Product entity);
+        Task<Product> AddProductAsync(Product entity);
 
-        Product UpdateProduct(Int32? id, Product changes);
+        Task<Product> UpdateProductAsync(Product changes);
 
-        Product DeleteProduct(Int32? id);
+        Task<Product> DeleteProductAsync(Product changes);
     }
 }

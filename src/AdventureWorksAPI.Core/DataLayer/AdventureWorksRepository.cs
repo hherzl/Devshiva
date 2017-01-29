@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AdventureWorksAPI.Core.EntityLayer;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdventureWorksAPI.Core.DataLayer
 {
@@ -28,10 +29,10 @@ namespace AdventureWorksAPI.Core.DataLayer
             }
         }
 
-        public IEnumerable<Product> GetProducts(Int32 pageSize, Int32 pageNumber, String name)
+        public IQueryable<Product> GetProducts(Int32 pageSize, Int32 pageNumber, String name)
         {
-            var query = DbContext.Set<Product>().AsQueryable().Skip((pageNumber - 1) * pageSize).Take(pageSize);
-            
+            var query = DbContext.Set<Product>().Skip((pageNumber - 1) * pageSize).Take(pageSize);
+
             if (!String.IsNullOrEmpty(name))
             {
                 query = query.Where(item => item.Name.ToLower().Contains(name.ToLower()));
@@ -40,12 +41,12 @@ namespace AdventureWorksAPI.Core.DataLayer
             return query;
         }
 
-        public Product GetProduct(Int32? id)
+        public Task<Product> GetProductAsync(Product entity)
         {
-            return DbContext.Set<Product>().FirstOrDefault(item => item.ProductID == id);
+            return DbContext.Set<Product>().FirstOrDefaultAsync(item => item.ProductID == entity.ProductID);
         }
 
-        public Product AddProduct(Product entity)
+        public async Task<Product> AddProductAsync(Product entity)
         {
             entity.MakeFlag = false;
             entity.FinishedGoodsFlag = false;
@@ -60,35 +61,35 @@ namespace AdventureWorksAPI.Core.DataLayer
 
             DbContext.Set<Product>().Add(entity);
 
-            DbContext.SaveChanges();
+            await DbContext.SaveChangesAsync();
 
             return entity;
         }
 
-        public Product UpdateProduct(Int32? id, Product changes)
+        public async Task<Product> UpdateProductAsync(Product changes)
         {
-            var entity = GetProduct(id);
+            var entity = await GetProductAsync(changes);
 
             if (entity != null)
             {
                 entity.Name = changes.Name;
                 entity.ProductNumber = changes.ProductNumber;
 
-                DbContext.SaveChanges();
+                await DbContext.SaveChangesAsync();
             }
 
             return entity;
         }
 
-        public Product DeleteProduct(Int32? id)
+        public async Task<Product> DeleteProductAsync(Product changes)
         {
-            var entity = GetProduct(id);
+            var entity = await GetProductAsync(changes);
 
             if (entity != null)
             {
                 DbContext.Set<Product>().Remove(entity);
 
-                DbContext.SaveChanges();
+                await DbContext.SaveChangesAsync();
             }
 
             return entity;

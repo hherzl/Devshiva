@@ -97,17 +97,16 @@ namespace AdventureWorksAPI.Tests
             {
                 // Arrange
                 var controller = new ProductionController(repository);
-
-                var id = 1;
-
+                
                 var viewModel = new ProductViewModel
                 {
+                    ProductID = 1,
                     ProductName = "New product test II",
                     ProductNumber = "XYZ"
                 };
 
                 // Act
-                var response = await controller.UpdateProduct(id, viewModel) as ObjectResult;
+                var response = await controller.UpdateProduct(viewModel) as ObjectResult;
 
                 // Assert
                 var value = response.Value as ISingleModelResponse<ProductViewModel>;

@@ -2,10 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AdventureWorksAPI.Core.DataLayer;
+using AdventureWorksAPI.Core.EntityLayer;
 using AdventureWorksAPI.Extensions;
 using AdventureWorksAPI.Responses;
 using AdventureWorksAPI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdventureWorksAPI.Controllers
 {
@@ -45,13 +47,10 @@ namespace AdventureWorksAPI.Controllers
                 response.PageSize = (Int32)pageSize;
                 response.PageNumber = (Int32)pageNumber;
 
-                response.Model = await Task.Run(() =>
-                {
-                    return AdventureWorksRepository
+                response.Model = await AdventureWorksRepository
                         .GetProducts(response.PageSize, response.PageNumber, name)
                         .Select(item => item.ToViewModel())
-                        .ToList();
-                });
+                        .ToListAsync();
 
                 response.Message = String.Format("Total of records: {0}", response.Model.Count());
             }
@@ -78,10 +77,9 @@ namespace AdventureWorksAPI.Controllers
 
             try
             {
-                response.Model = await Task.Run(() =>
-                {
-                    return AdventureWorksRepository.GetProduct(id).ToViewModel();
-                });
+                var entity = await AdventureWorksRepository.GetProductAsync(new Product { ProductID = id });
+
+                response.Model = entity.ToViewModel();
             }
             catch (Exception ex)
             {
@@ -106,10 +104,7 @@ namespace AdventureWorksAPI.Controllers
 
             try
             {
-                var entity = await Task.Run(() =>
-                {
-                    return AdventureWorksRepository.AddProduct(value.ToEntity());
-                });
+                var entity = await AdventureWorksRepository.AddProductAsync(value.ToEntity());
 
                 response.Model = entity.ToViewModel();
                 response.Message = "The data was saved successfully";
@@ -127,21 +122,17 @@ namespace AdventureWorksAPI.Controllers
         /// <summary>
         /// Updates an existing product
         /// </summary>
-        /// <param name="id">Product ID</param>
         /// <param name="value">Product entry</param>
         /// <returns>Single response</returns>
         [HttpPut]
-        [Route("Product/{id}")]
-        public async Task<IActionResult> UpdateProduct(Int32 id, [FromBody]ProductViewModel value)
+        [Route("Product")]
+        public async Task<IActionResult> UpdateProduct([FromBody]ProductViewModel value)
         {
             var response = new SingleModelResponse<ProductViewModel>() as ISingleModelResponse<ProductViewModel>;
 
             try
             {
-                var entity = await Task.Run(() =>
-                {
-                    return AdventureWorksRepository.UpdateProduct(id, value.ToEntity());
-                });
+                var entity = await AdventureWorksRepository.UpdateProductAsync(value.ToEntity());
 
                 response.Model = entity.ToViewModel();
                 response.Message = "The record was updated successfully";
@@ -169,10 +160,7 @@ namespace AdventureWorksAPI.Controllers
 
             try
             {
-                var entity = await Task.Run(() =>
-                {
-                    return AdventureWorksRepository.DeleteProduct(id);
-                });
+                var entity = await AdventureWorksRepository.DeleteProductAsync(new Product { ProductID = id });
 
                 response.Model = entity.ToViewModel();
                 response.Message = "The record was deleted successfully";
