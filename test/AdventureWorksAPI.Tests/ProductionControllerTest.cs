@@ -13,7 +13,7 @@ namespace AdventureWorksAPI.Tests
         [Fact]
         public async Task Production_GetProductsAsync()
         {
-            using (var repository = RepositoryMocker.AdventureWorksRepository)
+            using (var repository = RepositoryMocker.GetAdventureWorksRepository())
             {
                 // Arrange
                 var controller = new ProductionController(repository);
@@ -31,7 +31,7 @@ namespace AdventureWorksAPI.Tests
         [Fact]
         public async Task Production_GetProductAsync()
         {
-            using (var repository = RepositoryMocker.AdventureWorksRepository)
+            using (var repository = RepositoryMocker.GetAdventureWorksRepository())
             {
                 // Arrange
                 var controller = new ProductionController(repository);
@@ -50,7 +50,7 @@ namespace AdventureWorksAPI.Tests
         [Fact]
         public async Task Production_GetNonExistingProductAsync()
         {
-            using (var repository = RepositoryMocker.AdventureWorksRepository)
+            using (var repository = RepositoryMocker.GetAdventureWorksRepository())
             {
                 // Arrange
                 var controller = new ProductionController(repository);
@@ -69,7 +69,7 @@ namespace AdventureWorksAPI.Tests
         [Fact]
         public async Task Production_CreateProductAsync()
         {
-            using (var repository = RepositoryMocker.AdventureWorksRepository)
+            using (var repository = RepositoryMocker.GetAdventureWorksRepository())
             {
                 // Arrange
                 var controller = new ProductionController(repository);
@@ -93,11 +93,11 @@ namespace AdventureWorksAPI.Tests
         [Fact]
         public async Task Production_UpdateProductAsync()
         {
-            using (var repository = RepositoryMocker.AdventureWorksRepository)
+            using (var repository = RepositoryMocker.GetAdventureWorksRepository())
             {
                 // Arrange
                 var controller = new ProductionController(repository);
-                
+
                 var viewModel = new ProductViewModel
                 {
                     ProductID = 1,
@@ -118,7 +118,7 @@ namespace AdventureWorksAPI.Tests
         [Fact]
         public async Task Production_DeleteProductAsync()
         {
-            using (var repository = RepositoryMocker.AdventureWorksRepository)
+            using (var repository = RepositoryMocker.GetAdventureWorksRepository())
             {
                 // Arrange
                 var controller = new ProductionController(repository);

@@ -40,7 +40,7 @@ namespace AdventureWorksAPI.Controllers
         [Route("Product")]
         public async Task<IActionResult> GetProducts(Int32? pageSize = 10, Int32? pageNumber = 1, String name = null)
         {
-            var response = new ListModelResponse<ProductViewModel>() as IListModelResponse<ProductViewModel>;
+            var response = new ListModelResponse<ProductViewModel>();
 
             try
             {
@@ -73,7 +73,7 @@ namespace AdventureWorksAPI.Controllers
         [Route("Product/{id}")]
         public async Task<IActionResult> GetProduct(Int32 id)
         {
-            var response = new SingleModelResponse<ProductViewModel>() as ISingleModelResponse<ProductViewModel>;
+            var response = new SingleModelResponse<ProductViewModel>();
 
             try
             {
@@ -100,7 +100,7 @@ namespace AdventureWorksAPI.Controllers
         [Route("Product")]
         public async Task<IActionResult> CreateProduct([FromBody]ProductViewModel value)
         {
-            var response = new SingleModelResponse<ProductViewModel>() as ISingleModelResponse<ProductViewModel>;
+            var response = new SingleModelResponse<ProductViewModel>();
 
             try
             {
@@ -128,7 +128,7 @@ namespace AdventureWorksAPI.Controllers
         [Route("Product")]
         public async Task<IActionResult> UpdateProduct([FromBody]ProductViewModel value)
         {
-            var response = new SingleModelResponse<ProductViewModel>() as ISingleModelResponse<ProductViewModel>;
+            var response = new SingleModelResponse<ProductViewModel>();
 
             try
             {
@@ -156,7 +156,7 @@ namespace AdventureWorksAPI.Controllers
         [Route("Product/{id}")]
         public async Task<IActionResult> DeleteProduct(Int32 id)
         {
-            var response = new SingleModelResponse<ProductViewModel>() as ISingleModelResponse<ProductViewModel>;
+            var response = new SingleModelResponse<ProductViewModel>();
 
             try
             {
