@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Net;
-using AdventureWorksAPI.Responses;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AdventureWorksAPI.Extensions
+namespace AdventureWorksAPI.Responses
 {
     public static class ResponseExtensions
     {
@@ -20,7 +19,10 @@ namespace AdventureWorksAPI.Extensions
                 status = HttpStatusCode.NoContent;
             }
 
-            return new ObjectResult(response) { StatusCode = (Int32)status };
+            return new ObjectResult(response)
+            {
+                StatusCode = (Int32)status
+            };
         }
 
         public static IActionResult ToHttpResponse<TModel>(this ISingleModelResponse<TModel> response)
@@ -36,7 +38,10 @@ namespace AdventureWorksAPI.Extensions
                 status = HttpStatusCode.NotFound;
             }
 
-            return new ObjectResult(response) { StatusCode = (Int32)status };
+            return new ObjectResult(response)
+            {
+                StatusCode = (Int32)status
+            };
         }
     }
 }

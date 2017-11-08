@@ -1,13 +1,12 @@
 ﻿using AdventureWorksAPI.Core.EntityLayer;
-using AdventureWorksAPI.ViewModels;
 
-namespace AdventureWorksAPI.Extensions
+namespace AdventureWorksAPI.ViewModels
 {
     public static class ProductViewModelMapper
     {
         public static ProductViewModel ToViewModel(this Product entity)
         {
-            return entity == null ? null : new ProductViewModel
+            return new ProductViewModel
             {
                 ProductID = entity.ProductID,
                 ProductName = entity.Name,
@@ -17,7 +16,7 @@ namespace AdventureWorksAPI.Extensions
 
         public static Product ToEntity(this ProductViewModel viewModel)
         {
-            return viewModel == null ? null : new Product
+            return new Product
             {
                 Name = viewModel.ProductName,
                 ProductNumber = viewModel.ProductNumber

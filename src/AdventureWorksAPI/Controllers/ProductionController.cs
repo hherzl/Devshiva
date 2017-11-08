@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AdventureWorksAPI.Core.DataLayer;
 using AdventureWorksAPI.Core.EntityLayer;
-using AdventureWorksAPI.Extensions;
 using AdventureWorksAPI.Responses;
 using AdventureWorksAPI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -38,7 +37,7 @@ namespace AdventureWorksAPI.Controllers
         /// <returns>List response</returns>
         [HttpGet]
         [Route("Product")]
-        public async Task<IActionResult> GetProducts(Int32? pageSize = 10, Int32? pageNumber = 1, String name = null)
+        public async Task<IActionResult> GetProductsAsync(Int32? pageSize = 10, Int32? pageNumber = 1, String name = null)
         {
             var response = new ListModelResponse<ProductViewModel>();
 
@@ -71,7 +70,7 @@ namespace AdventureWorksAPI.Controllers
         /// <returns>Single response</returns>
         [HttpGet]
         [Route("Product/{id}")]
-        public async Task<IActionResult> GetProduct(Int32 id)
+        public async Task<IActionResult> GetProductAsync(Int32 id)
         {
             var response = new SingleModelResponse<ProductViewModel>();
 
@@ -79,7 +78,7 @@ namespace AdventureWorksAPI.Controllers
             {
                 var entity = await AdventureWorksRepository.GetProductAsync(new Product { ProductID = id });
 
-                response.Model = entity.ToViewModel();
+                response.Model = entity?.ToViewModel();
             }
             catch (Exception ex)
             {
@@ -94,19 +93,19 @@ namespace AdventureWorksAPI.Controllers
         /// <summary>
         /// Creates a new product on Production catalog
         /// </summary>
-        /// <param name="value">Product entry</param>
+        /// <param name="request">Product entry</param>
         /// <returns>Single response</returns>
         [HttpPost]
         [Route("Product")]
-        public async Task<IActionResult> CreateProduct([FromBody]ProductViewModel value)
+        public async Task<IActionResult> PostProductAsync([FromBody]ProductViewModel request)
         {
             var response = new SingleModelResponse<ProductViewModel>();
 
             try
             {
-                var entity = await AdventureWorksRepository.AddProductAsync(value.ToEntity());
+                var entity = await AdventureWorksRepository.AddProductAsync(request.ToEntity());
 
-                response.Model = entity.ToViewModel();
+                response.Model = entity?.ToViewModel();
                 response.Message = "The data was saved successfully";
             }
             catch (Exception ex)
@@ -122,19 +121,20 @@ namespace AdventureWorksAPI.Controllers
         /// <summary>
         /// Updates an existing product
         /// </summary>
-        /// <param name="value">Product entry</param>
+        /// <param name="id">Product ID</param>
+        /// <param name="request">Product entry</param>
         /// <returns>Single response</returns>
         [HttpPut]
-        [Route("Product")]
-        public async Task<IActionResult> UpdateProduct([FromBody]ProductViewModel value)
+        [Route("Product/{id}")]
+        public async Task<IActionResult> PutProductAsync(Int32 id, [FromBody]ProductViewModel request)
         {
             var response = new SingleModelResponse<ProductViewModel>();
 
             try
             {
-                var entity = await AdventureWorksRepository.UpdateProductAsync(value.ToEntity());
+                var entity = await AdventureWorksRepository.UpdateProductAsync(request.ToEntity());
 
-                response.Model = entity.ToViewModel();
+                response.Model = entity?.ToViewModel();
                 response.Message = "The record was updated successfully";
             }
             catch (Exception ex)
@@ -154,7 +154,7 @@ namespace AdventureWorksAPI.Controllers
         /// <returns>Single response</returns>
         [HttpDelete]
         [Route("Product/{id}")]
-        public async Task<IActionResult> DeleteProduct(Int32 id)
+        public async Task<IActionResult> DeleteProductAsync(Int32 id)
         {
             var response = new SingleModelResponse<ProductViewModel>();
 
@@ -162,7 +162,7 @@ namespace AdventureWorksAPI.Controllers
             {
                 var entity = await AdventureWorksRepository.DeleteProductAsync(new Product { ProductID = id });
 
-                response.Model = entity.ToViewModel();
+                response.Model = entity?.ToViewModel();
                 response.Message = "The record was deleted successfully";
             }
             catch (Exception ex)

@@ -11,127 +11,120 @@ namespace AdventureWorksAPI.Tests
     public class ProductionControllerTest
     {
         [Fact]
-        public async Task Production_GetProductsAsync()
+        public async Task TestGetProductsAsync()
         {
-            using (var repository = RepositoryMocker.GetAdventureWorksRepository())
-            {
-                // Arrange
-                var controller = new ProductionController(repository);
+            // Arrange
+            var repository = RepositoryMocker.GetAdventureWorksRepository();
+            var controller = new ProductionController(repository);
 
-                // Act
-                var response = await controller.GetProducts() as ObjectResult;
+            // Act
+            var response = await controller.GetProductsAsync() as ObjectResult;
+            var value = response.Value as IListModelResponse<ProductViewModel>;
 
-                // Assert
-                var value = response.Value as IListModelResponse<ProductViewModel>;
+            controller.Dispose();
 
-                Assert.False(value.DidError);
-            }
+            // Assert
+            Assert.False(value.DidError);
         }
 
         [Fact]
-        public async Task Production_GetProductAsync()
+        public async Task TestGetProductAsync()
         {
-            using (var repository = RepositoryMocker.GetAdventureWorksRepository())
-            {
-                // Arrange
-                var controller = new ProductionController(repository);
-                var id = 1;
+            // Arrange
+            var repository = RepositoryMocker.GetAdventureWorksRepository();
+            var controller = new ProductionController(repository);
+            var id = 1;
 
-                // Act
-                var response = await controller.GetProduct(id) as ObjectResult;
+            // Act
+            var response = await controller.GetProductAsync(id) as ObjectResult;
+            var value = response.Value as ISingleModelResponse<ProductViewModel>;
 
-                // Assert
-                var value = response.Value as ISingleModelResponse<ProductViewModel>;
+            repository.Dispose();
 
-                Assert.False(value.DidError);
-            }
+            // Assert
+            Assert.False(value.DidError);
         }
 
         [Fact]
-        public async Task Production_GetNonExistingProductAsync()
+        public async Task TestGetNonExistingProductAsync()
         {
-            using (var repository = RepositoryMocker.GetAdventureWorksRepository())
-            {
-                // Arrange
-                var controller = new ProductionController(repository);
-                var id = 0;
+            // Arrange
+            var repository = RepositoryMocker.GetAdventureWorksRepository();
+            var controller = new ProductionController(repository);
+            var id = 0;
 
-                // Act
-                var response = await controller.GetProduct(id) as ObjectResult;
+            // Act
+            var response = await controller.GetProductAsync(id) as ObjectResult;
+            var value = response.Value as ISingleModelResponse<ProductViewModel>;
 
-                // Assert
-                var value = response.Value as ISingleModelResponse<ProductViewModel>;
+            repository.Dispose();
 
-                Assert.False(value.DidError);
-            }
+            // Assert
+            Assert.False(value.DidError);
         }
 
         [Fact]
-        public async Task Production_CreateProductAsync()
+        public async Task TestPostProductAsync()
         {
-            using (var repository = RepositoryMocker.GetAdventureWorksRepository())
+            // Arrange
+            var repository = RepositoryMocker.GetAdventureWorksRepository();
+            var controller = new ProductionController(repository);
+            var request = new ProductViewModel
             {
-                // Arrange
-                var controller = new ProductionController(repository);
+                ProductName = String.Format("New test product {0}{1}{2}", DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond),
+                ProductNumber = String.Format("{0}{1}{2}", DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond)
+            };
 
-                var viewModel = new ProductViewModel
-                {
-                    ProductName = String.Format("New test product {0}{1}{2}", DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond),
-                    ProductNumber = String.Format("{0}{1}{2}", DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond)
-                };
+            // Act
+            var response = await controller.PostProductAsync(request) as ObjectResult;
+            var value = response.Value as ISingleModelResponse<ProductViewModel>;
 
-                // Act
-                var response = await controller.CreateProduct(viewModel) as ObjectResult;
+            repository.Dispose();
 
-                // Assert
-                var value = response.Value as ISingleModelResponse<ProductViewModel>;
-
-                Assert.False(value.DidError);
-            }
+            // Assert
+            Assert.False(value.DidError);
         }
 
         [Fact]
-        public async Task Production_UpdateProductAsync()
+        public async Task TestPutProductAsync()
         {
-            using (var repository = RepositoryMocker.GetAdventureWorksRepository())
+            // Arrange
+            var repository = RepositoryMocker.GetAdventureWorksRepository();
+            var controller = new ProductionController(repository);
+            var id = 1;
+            var request = new ProductViewModel
             {
-                // Arrange
-                var controller = new ProductionController(repository);
+                ProductID = id,
+                ProductName = "New product test II",
+                ProductNumber = "XYZ"
+            };
 
-                var viewModel = new ProductViewModel
-                {
-                    ProductID = 1,
-                    ProductName = "New product test II",
-                    ProductNumber = "XYZ"
-                };
+            // Act
+            var response = await controller.PutProductAsync(id, request) as ObjectResult;
+            var value = response.Value as ISingleModelResponse<ProductViewModel>;
 
-                // Act
-                var response = await controller.UpdateProduct(viewModel) as ObjectResult;
+            repository.Dispose();
 
-                // Assert
-                var value = response.Value as ISingleModelResponse<ProductViewModel>;
-
-                Assert.False(value.DidError);
-            }
+            // Assert
+            Assert.False(value.DidError);
         }
 
         [Fact]
-        public async Task Production_DeleteProductAsync()
+        public async Task TestDeleteProductAsync()
         {
-            using (var repository = RepositoryMocker.GetAdventureWorksRepository())
-            {
-                // Arrange
-                var controller = new ProductionController(repository);
-                var id = 1000;
+            // Arrange
+            var repository = RepositoryMocker.GetAdventureWorksRepository();
+            var controller = new ProductionController(repository);
+            var id = 1000;
 
-                // Act
-                var response = await controller.DeleteProduct(id) as ObjectResult;
+            // Act
+            var response = await controller.DeleteProductAsync(id) as ObjectResult;
+            var value = response.Value as ISingleModelResponse<ProductViewModel>;
 
-                // Assert
-                var value = response.Value as ISingleModelResponse<ProductViewModel>;
+            repository.Dispose();
 
-                Assert.False(value.DidError);
-            }
+            // Assert
+            Assert.False(value.DidError);
         }
     }
 }
