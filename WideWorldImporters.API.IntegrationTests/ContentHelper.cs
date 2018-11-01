@@ -7,10 +7,6 @@ namespace WideWorldImporters.API.IntegrationTests
     public static class ContentHelper
     {
         public static StringContent GetStringContent(object obj)
-        {
-            var json = JsonConvert.SerializeObject(obj);
-
-            return new StringContent(json, Encoding.Default, "application/json");
-        }
+            => new StringContent(JsonConvert.SerializeObject(obj), Encoding.Default, "application/json");
     }
 }
