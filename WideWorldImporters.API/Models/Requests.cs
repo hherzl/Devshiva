@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WideWorldImporters.API.Models
 {
-    public class PostStockItemsRequestModel
+    public class PostStockItemsRequest
     {
         [Key]
         public int? StockItemID { get; set; }
@@ -71,7 +71,7 @@ namespace WideWorldImporters.API.Models
         public DateTime? ValidTo { get; set; }
     }
 
-    public class PutStockItemsRequestModel
+    public class PutStockItemsRequest
     {
         [Required]
         [StringLength(200)]
@@ -88,33 +88,33 @@ namespace WideWorldImporters.API.Models
 
     public static class Extensions
     {
-        public static StockItem ToEntity(this PostStockItemsRequestModel requestModel)
+        public static StockItem ToEntity(this PostStockItemsRequest request)
             => new StockItem
             {
-                StockItemID = requestModel.StockItemID,
-                StockItemName = requestModel.StockItemName,
-                SupplierID = requestModel.SupplierID,
-                ColorID = requestModel.ColorID,
-                UnitPackageID = requestModel.UnitPackageID,
-                OuterPackageID = requestModel.OuterPackageID,
-                Brand = requestModel.Brand,
-                Size = requestModel.Size,
-                LeadTimeDays = requestModel.LeadTimeDays,
-                QuantityPerOuter = requestModel.QuantityPerOuter,
-                IsChillerStock = requestModel.IsChillerStock,
-                Barcode = requestModel.Barcode,
-                TaxRate = requestModel.TaxRate,
-                UnitPrice = requestModel.UnitPrice,
-                RecommendedRetailPrice = requestModel.RecommendedRetailPrice,
-                TypicalWeightPerUnit = requestModel.TypicalWeightPerUnit,
-                MarketingComments = requestModel.MarketingComments,
-                InternalComments = requestModel.InternalComments,
-                CustomFields = requestModel.CustomFields,
-                Tags = requestModel.Tags,
-                SearchDetails = requestModel.SearchDetails,
-                LastEditedBy = requestModel.LastEditedBy,
-                ValidFrom = requestModel.ValidFrom,
-                ValidTo = requestModel.ValidTo
+                StockItemID = request.StockItemID,
+                StockItemName = request.StockItemName,
+                SupplierID = request.SupplierID,
+                ColorID = request.ColorID,
+                UnitPackageID = request.UnitPackageID,
+                OuterPackageID = request.OuterPackageID,
+                Brand = request.Brand,
+                Size = request.Size,
+                LeadTimeDays = request.LeadTimeDays,
+                QuantityPerOuter = request.QuantityPerOuter,
+                IsChillerStock = request.IsChillerStock,
+                Barcode = request.Barcode,
+                TaxRate = request.TaxRate,
+                UnitPrice = request.UnitPrice,
+                RecommendedRetailPrice = request.RecommendedRetailPrice,
+                TypicalWeightPerUnit = request.TypicalWeightPerUnit,
+                MarketingComments = request.MarketingComments,
+                InternalComments = request.InternalComments,
+                CustomFields = request.CustomFields,
+                Tags = request.Tags,
+                SearchDetails = request.SearchDetails,
+                LastEditedBy = request.LastEditedBy,
+                ValidFrom = request.ValidFrom,
+                ValidTo = request.ValidTo
             };
     }
 }

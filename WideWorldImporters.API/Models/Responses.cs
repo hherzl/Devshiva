@@ -27,7 +27,16 @@ namespace WideWorldImporters.API.Models
     {
         int ItemsCount { get; set; }
 
-        int PageCount { get; }
+        double PageCount { get; }
+    }
+
+    public class Response : IResponse
+    {
+        public string Message { get; set; }
+
+        public bool DidError { get; set; }
+
+        public string ErrorMessage { get; set; }
     }
 
     public class SingleResponse<TModel> : ISingleResponse<TModel>
@@ -68,20 +77,15 @@ namespace WideWorldImporters.API.Models
 
         public int ItemsCount { get; set; }
 
-        public int PageCount =>
-            PageSize == 0 ? 0 : ItemsCount / PageSize;
+        public double PageCount
+            => ItemsCount < PageSize ? 1 : (int)(((double)ItemsCount / PageSize) + 1);
     }
 
     public static class ResponseExtensions
     {
-        public static IActionResult ToHttpResponse<TModel>(this IListResponse<TModel> response)
+        public static IActionResult ToHttpResponse(this IResponse response)
         {
-            var status = HttpStatusCode.OK;
-
-            if (response.DidError)
-                status = HttpStatusCode.InternalServerError;
-            else if (response.Model == null)
-                status = HttpStatusCode.NoContent;
+            var status = response.DidError ? HttpStatusCode.InternalServerError : HttpStatusCode.OK;
 
             return new ObjectResult(response)
             {
@@ -97,6 +101,21 @@ namespace WideWorldImporters.API.Models
                 status = HttpStatusCode.InternalServerError;
             else if (response.Model == null)
                 status = HttpStatusCode.NotFound;
+
+            return new ObjectResult(response)
+            {
+                StatusCode = (int)status
+            };
+        }
+
+        public static IActionResult ToHttpResponse<TModel>(this IListResponse<TModel> response)
+        {
+            var status = HttpStatusCode.OK;
+
+            if (response.DidError)
+                status = HttpStatusCode.InternalServerError;
+            else if (response.Model == null)
+                status = HttpStatusCode.NoContent;
 
             return new ObjectResult(response)
             {

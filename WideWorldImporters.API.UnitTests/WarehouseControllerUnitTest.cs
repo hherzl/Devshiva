@@ -50,7 +50,7 @@ namespace WideWorldImporters.API.UnitTests
             // Arrange
             var repository = RepositoryMocker.GetWarehouseRepository(nameof(TestPostStockItemAsync));
             var controller = new WarehouseController(null, repository);
-            var requestModel = new PostStockItemsRequestModel
+            var requestModel = new PostStockItemsRequest
             {
                 StockItemID = 100,
                 StockItemName = "USB anime flash drive - Goku",
@@ -89,7 +89,7 @@ namespace WideWorldImporters.API.UnitTests
             var repository = RepositoryMocker.GetWarehouseRepository(nameof(TestPutStockItemAsync));
             var controller = new WarehouseController(null, repository);
             var id = 12;
-            var requestModel = new PutStockItemsRequestModel
+            var requestModel = new PutStockItemsRequest
             {
                 StockItemName = "USB food flash drive (Update)",
                 SupplierID = 12,
@@ -98,7 +98,7 @@ namespace WideWorldImporters.API.UnitTests
 
             // Act
             var response = await controller.PutStockItemAsync(id, requestModel) as ObjectResult;
-            var value = response.Value as ISingleResponse<StockItem>;
+            var value = response.Value as IResponse;
 
             repository.Dispose();
 
@@ -116,7 +116,7 @@ namespace WideWorldImporters.API.UnitTests
 
             // Act
             var response = await controller.DeleteStockItemAsync(id) as ObjectResult;
-            var value = response.Value as ISingleResponse<StockItem>;
+            var value = response.Value as IResponse;
 
             repository.Dispose();
 

@@ -21,7 +21,7 @@ namespace WideWorldImporters.API.Controllers
         }
 
         // GET
-        // api/v1/StockItem
+        // api/v1/Warehouse/StockItem
 
         [HttpGet("StockItem")]
         public async Task<IActionResult> GetStockItemsAsync(int pageSize = 10, int pageNumber = 1, int? lastEditedBy = null, int? colorID = null, int? outerPackageID = null, int? supplierID = null, int? unitPackageID = null)
@@ -45,6 +45,8 @@ namespace WideWorldImporters.API.Controllers
                 // Get the specific page from database
                 response.Model = await query.Paging(pageSize, pageNumber).ToListAsync();
 
+                response.Message = string.Format("Page {0} of {1}, Total of products: {2}.", pageNumber, response.PageCount, response.ItemsCount);
+
                 Logger?.LogInformation("The stock items have been retrieved successfully.");
             }
             catch (Exception ex)
@@ -59,7 +61,7 @@ namespace WideWorldImporters.API.Controllers
         }
 
         // GET
-        // api/v1/StockItem/5
+        // api/v1/Warehouse/StockItem/5
 
         [HttpGet("StockItem/{id}")]
         public async Task<IActionResult> GetStockItemAsync(int id)
@@ -85,10 +87,10 @@ namespace WideWorldImporters.API.Controllers
         }
 
         // POST
-        // api/v1/StockItem/
+        // api/v1/Warehouse/StockItem/
 
         [HttpPost("StockItem")]
-        public async Task<IActionResult> PostStockItemAsync([FromBody]PostStockItemsRequestModel requestModel)
+        public async Task<IActionResult> PostStockItemAsync([FromBody]PostStockItemsRequest request)
         {
             Logger?.LogDebug("'{0}' has been invoked", nameof(PostStockItemAsync));
 
@@ -97,7 +99,7 @@ namespace WideWorldImporters.API.Controllers
             try
             {
                 var existingEntity = await Repository
-                    .GetStockItemsByStockItemNameAsync(new StockItem { StockItemName = requestModel.StockItemName });
+                    .GetStockItemsByStockItemNameAsync(new StockItem { StockItemName = request.StockItemName });
 
                 if (existingEntity != null)
                     ModelState.AddModelError("StockItemName", "Stock item name already exists");
@@ -106,7 +108,7 @@ namespace WideWorldImporters.API.Controllers
                     return BadRequest();
 
                 // Create entity from request model
-                var entity = requestModel.ToEntity();
+                var entity = request.ToEntity();
 
                 // Add entity to repository
                 Repository.Add(entity);
@@ -129,14 +131,14 @@ namespace WideWorldImporters.API.Controllers
         }
 
         // PUT
-        // api/v1/StockItem/5
+        // api/v1/Warehouse/StockItem/5
 
         [HttpPut("StockItem/{id}")]
-        public async Task<IActionResult> PutStockItemAsync(int id, [FromBody]PutStockItemsRequestModel requestModel)
+        public async Task<IActionResult> PutStockItemAsync(int id, [FromBody]PutStockItemsRequest request)
         {
             Logger?.LogDebug("'{0}' has been invoked", nameof(PutStockItemAsync));
 
-            var response = new SingleResponse<StockItem>();
+            var response = new Response();
 
             try
             {
@@ -145,22 +147,19 @@ namespace WideWorldImporters.API.Controllers
 
                 // Validate if entity exists
                 if (entity == null)
-                    return response.ToHttpResponse();
+                    return NotFound();
 
                 // Set changes to entity
-                entity.StockItemName = requestModel.StockItemName;
-                entity.SupplierID = requestModel.SupplierID;
-                entity.ColorID = requestModel.ColorID;
-                entity.UnitPrice = requestModel.UnitPrice;
+                entity.StockItemName = request.StockItemName;
+                entity.SupplierID = request.SupplierID;
+                entity.ColorID = request.ColorID;
+                entity.UnitPrice = request.UnitPrice;
 
                 // Update entity in repository
                 Repository.Update(entity);
 
                 // Save entity in database
                 await Repository.CommitChangesAsync();
-
-                // Set the entity to response model
-                response.Model = entity;
             }
             catch (Exception ex)
             {
@@ -174,14 +173,14 @@ namespace WideWorldImporters.API.Controllers
         }
 
         // DELETE
-        // api/v1/StockItem/5
+        // api/v1/Warehouse/StockItem/5
 
         [HttpDelete("StockItem/{id}")]
         public async Task<IActionResult> DeleteStockItemAsync(int id)
         {
             Logger?.LogDebug("'{0}' has been invoked", nameof(DeleteStockItemAsync));
 
-            var response = new SingleResponse<StockItem>();
+            var response = new Response();
 
             try
             {
@@ -190,16 +189,13 @@ namespace WideWorldImporters.API.Controllers
 
                 // Validate if entity exists
                 if (entity == null)
-                    return response.ToHttpResponse();
+                    return NotFound();
 
                 // Remove entity from repository
                 Repository.Remove(entity);
 
                 // Delete entity in database
                 await Repository.CommitChangesAsync();
-
-                // Set the entity to response model
-                response.Model = entity;
             }
             catch (Exception ex)
             {
