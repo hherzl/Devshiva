@@ -24,7 +24,6 @@ namespace WideWorldImporters.API.IntegrationTests
 
             // Act
             var response = await Client.GetAsync(request);
-            var value = await response.Content.ReadAsStringAsync();
 
             // Assert
             response.EnsureSuccessStatusCode();
@@ -38,7 +37,6 @@ namespace WideWorldImporters.API.IntegrationTests
 
             // Act
             var response = await Client.GetAsync(request);
-            var value = await response.Content.ReadAsStringAsync();
 
             // Assert
             response.EnsureSuccessStatusCode();
@@ -93,7 +91,6 @@ namespace WideWorldImporters.API.IntegrationTests
 
             // Act
             var response = await Client.PutAsync(requestUrl, ContentHelper.GetStringContent(requestModel));
-            var value = await response.Content.ReadAsStringAsync();
 
             // Assert
             response.EnsureSuccessStatusCode();
@@ -135,7 +132,9 @@ namespace WideWorldImporters.API.IntegrationTests
 
             // Assert
             postResponse.EnsureSuccessStatusCode();
+
             Assert.False(singleResponse.DidError);
+
             deleteResponse.EnsureSuccessStatusCode();
         }
     }
