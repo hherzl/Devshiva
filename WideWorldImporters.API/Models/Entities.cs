@@ -137,6 +137,7 @@ namespace WideWorldImporters.API.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Apply configurations for entity
+
             modelBuilder
                 .ApplyConfiguration(new StockItemsConfiguration());
 

@@ -13,14 +13,14 @@ namespace WideWorldImporters.API.UnitTests
         public async Task TestGetStockItemsAsync()
         {
             // Arrange
-            var repository = RepositoryMocker.GetWarehouseRepository(nameof(TestGetStockItemsAsync));
-            var controller = new WarehouseController(null, repository);
+            var dbContext = DbContextMocker.GetWideWorldImportersDbContext(nameof(TestGetStockItemsAsync));
+            var controller = new WarehouseController(null, dbContext);
 
             // Act
             var response = await controller.GetStockItemsAsync() as ObjectResult;
             var value = response.Value as IPagedResponse<StockItem>;
 
-            repository.Dispose();
+            dbContext.Dispose();
 
             // Assert
             Assert.False(value.DidError);
@@ -30,15 +30,15 @@ namespace WideWorldImporters.API.UnitTests
         public async Task TestGetStockItemAsync()
         {
             // Arrange
-            var repository = RepositoryMocker.GetWarehouseRepository(nameof(TestGetStockItemAsync));
-            var controller = new WarehouseController(null, repository);
+            var dbContext = DbContextMocker.GetWideWorldImportersDbContext(nameof(TestGetStockItemAsync));
+            var controller = new WarehouseController(null, dbContext);
             var id = 1;
 
             // Act
             var response = await controller.GetStockItemAsync(id) as ObjectResult;
             var value = response.Value as ISingleResponse<StockItem>;
 
-            repository.Dispose();
+            dbContext.Dispose();
 
             // Assert
             Assert.False(value.DidError);
@@ -48,8 +48,8 @@ namespace WideWorldImporters.API.UnitTests
         public async Task TestPostStockItemAsync()
         {
             // Arrange
-            var repository = RepositoryMocker.GetWarehouseRepository(nameof(TestPostStockItemAsync));
-            var controller = new WarehouseController(null, repository);
+            var dbContext = DbContextMocker.GetWideWorldImportersDbContext(nameof(TestPostStockItemAsync));
+            var controller = new WarehouseController(null, dbContext);
             var requestModel = new PostStockItemsRequest
             {
                 StockItemID = 100,
@@ -76,7 +76,7 @@ namespace WideWorldImporters.API.UnitTests
             var response = await controller.PostStockItemAsync(requestModel) as ObjectResult;
             var value = response.Value as ISingleResponse<StockItem>;
 
-            repository.Dispose();
+            dbContext.Dispose();
 
             // Assert
             Assert.False(value.DidError);
@@ -86,8 +86,8 @@ namespace WideWorldImporters.API.UnitTests
         public async Task TestPutStockItemAsync()
         {
             // Arrange
-            var repository = RepositoryMocker.GetWarehouseRepository(nameof(TestPutStockItemAsync));
-            var controller = new WarehouseController(null, repository);
+            var dbContext = DbContextMocker.GetWideWorldImportersDbContext(nameof(TestPutStockItemAsync));
+            var controller = new WarehouseController(null, dbContext);
             var id = 12;
             var requestModel = new PutStockItemsRequest
             {
@@ -100,7 +100,7 @@ namespace WideWorldImporters.API.UnitTests
             var response = await controller.PutStockItemAsync(id, requestModel) as ObjectResult;
             var value = response.Value as IResponse;
 
-            repository.Dispose();
+            dbContext.Dispose();
 
             // Assert
             Assert.False(value.DidError);
@@ -110,15 +110,15 @@ namespace WideWorldImporters.API.UnitTests
         public async Task TestDeleteStockItemAsync()
         {
             // Arrange
-            var repository = RepositoryMocker.GetWarehouseRepository(nameof(TestDeleteStockItemAsync));
-            var controller = new WarehouseController(null, repository);
+            var dbContext = DbContextMocker.GetWideWorldImportersDbContext(nameof(TestDeleteStockItemAsync));
+            var controller = new WarehouseController(null, dbContext);
             var id = 5;
 
             // Act
             var response = await controller.DeleteStockItemAsync(id) as ObjectResult;
             var value = response.Value as IResponse;
 
-            repository.Dispose();
+            dbContext.Dispose();
 
             // Assert
             Assert.False(value.DidError);

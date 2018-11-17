@@ -12,12 +12,12 @@ namespace WideWorldImporters.API.Controllers
     public class WarehouseController : ControllerBase
     {
         protected readonly ILogger Logger;
-        protected readonly IWarehouseRepository Repository;
+        protected readonly WideWorldImportersDbContext DbContext;
 
-        public WarehouseController(ILogger<WarehouseController> logger, IWarehouseRepository repository)
+        public WarehouseController(ILogger<WarehouseController> logger, WideWorldImportersDbContext dbContext)
         {
             Logger = logger;
-            Repository = repository;
+            DbContext = dbContext;
         }
 
         // GET
@@ -33,7 +33,7 @@ namespace WideWorldImporters.API.Controllers
             try
             {
                 // Get the "proposed" query from repository
-                var query = Repository.GetStockItems();
+                var query = DbContext.GetStockItems();
 
                 // Set paging values
                 response.PageSize = pageSize;
@@ -73,7 +73,7 @@ namespace WideWorldImporters.API.Controllers
             try
             {
                 // Get the stock item by id
-                response.Model = await Repository.GetStockItemsAsync(new StockItem(id));
+                response.Model = await DbContext.GetStockItemsAsync(new StockItem(id));
             }
             catch (Exception ex)
             {
@@ -98,7 +98,7 @@ namespace WideWorldImporters.API.Controllers
 
             try
             {
-                var existingEntity = await Repository
+                var existingEntity = await DbContext
                     .GetStockItemsByStockItemNameAsync(new StockItem { StockItemName = request.StockItemName });
 
                 if (existingEntity != null)
@@ -111,10 +111,10 @@ namespace WideWorldImporters.API.Controllers
                 var entity = request.ToEntity();
 
                 // Add entity to repository
-                Repository.Add(entity);
+                DbContext.Add(entity);
 
                 // Save entity in database
-                await Repository.CommitChangesAsync();
+                await DbContext.SaveChangesAsync();
 
                 // Set the entity to response model
                 response.Model = entity;
@@ -143,7 +143,7 @@ namespace WideWorldImporters.API.Controllers
             try
             {
                 // Get stock item by id
-                var entity = await Repository.GetStockItemsAsync(new StockItem(id));
+                var entity = await DbContext.GetStockItemsAsync(new StockItem(id));
 
                 // Validate if entity exists
                 if (entity == null)
@@ -156,10 +156,10 @@ namespace WideWorldImporters.API.Controllers
                 entity.UnitPrice = request.UnitPrice;
 
                 // Update entity in repository
-                Repository.Update(entity);
+                DbContext.Update(entity);
 
                 // Save entity in database
-                await Repository.CommitChangesAsync();
+                await DbContext.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -185,17 +185,17 @@ namespace WideWorldImporters.API.Controllers
             try
             {
                 // Get stock item by id
-                var entity = await Repository.GetStockItemsAsync(new StockItem(id));
+                var entity = await DbContext.GetStockItemsAsync(new StockItem(id));
 
                 // Validate if entity exists
                 if (entity == null)
                     return NotFound();
 
                 // Remove entity from repository
-                Repository.Remove(entity);
+                DbContext.Remove(entity);
 
                 // Delete entity in database
-                await Repository.CommitChangesAsync();
+                await DbContext.SaveChangesAsync();
             }
             catch (Exception ex)
             {

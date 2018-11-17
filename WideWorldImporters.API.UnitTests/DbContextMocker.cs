@@ -3,9 +3,9 @@ using WideWorldImporters.API.Models;
 
 namespace WideWorldImporters.API.UnitTests
 {
-    public static class RepositoryMocker
+    public static class DbContextMocker
     {
-        public static IWarehouseRepository GetWarehouseRepository(string dbName)
+        public static WideWorldImportersDbContext GetWideWorldImportersDbContext(string dbName)
         {
             // Create options for DbContext instance
             var options = new DbContextOptionsBuilder<WideWorldImportersDbContext>()
@@ -18,7 +18,7 @@ namespace WideWorldImporters.API.UnitTests
             // Add entities in memory
             dbContext.Seed();
 
-            return new WarehouseRepository(dbContext);
+            return dbContext;
         }
     }
 }
