@@ -61,18 +61,14 @@ namespace WideWorldImporters.API.IntegrationTests
                 .UseEnvironment("Development")
                 .UseStartup(typeof(TStartup));
 
+            // Create instance of test server
             Server = new TestServer(webHostBuilder);
 
+            // Add configuration for client
             Client = Server.CreateClient();
-            Client.BaseAddress = new Uri("http://localhost:1234");
+            Client.BaseAddress = new Uri("http://localhost:5001");
             Client.DefaultRequestHeaders.Accept.Clear();
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        }
-
-        public void Dispose()
-        {
-            Client.Dispose();
-            Server.Dispose();
         }
 
         public HttpClient Client { get; }
@@ -83,11 +79,20 @@ namespace WideWorldImporters.API.IntegrationTests
 
             var manager = new ApplicationPartManager();
 
+            // Add parts
             manager.ApplicationParts.Add(new AssemblyPart(startupAssembly));
+
+            // Add providers
             manager.FeatureProviders.Add(new ControllerFeatureProvider());
             manager.FeatureProviders.Add(new ViewComponentFeatureProvider());
 
             services.AddSingleton(manager);
+        }
+
+        public void Dispose()
+        {
+            Client.Dispose();
+            Server.Dispose();
         }
     }
 }

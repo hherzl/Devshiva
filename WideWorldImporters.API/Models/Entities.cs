@@ -75,11 +75,6 @@ namespace WideWorldImporters.API.Models
             builder.HasKey(p => p.StockItemID);
 
             // Set configuration for columns
-            builder
-                .Property(p => p.StockItemID)
-                .HasColumnType("int")
-                .IsRequired()
-                .HasComputedColumnSql("NEXT VALUE FOR [Sequences].[StockItemID]");
 
             builder.Property(p => p.StockItemName).HasColumnType("nvarchar(200)").IsRequired();
             builder.Property(p => p.SupplierID).HasColumnType("int").IsRequired();
@@ -99,6 +94,15 @@ namespace WideWorldImporters.API.Models
             builder.Property(p => p.MarketingComments).HasColumnType("nvarchar(max)");
             builder.Property(p => p.InternalComments).HasColumnType("nvarchar(max)");
             builder.Property(p => p.CustomFields).HasColumnType("nvarchar(max)");
+            builder.Property(p => p.LastEditedBy).HasColumnType("int").IsRequired();
+
+            // Computed columns
+
+            builder
+                .Property(p => p.StockItemID)
+                .HasColumnType("int")
+                .IsRequired()
+                .HasComputedColumnSql("NEXT VALUE FOR [Sequences].[StockItemID]");
 
             builder
                 .Property(p => p.Tags)
@@ -111,7 +115,7 @@ namespace WideWorldImporters.API.Models
                 .IsRequired()
                 .HasComputedColumnSql("concat([StockItemName],N' ',[MarketingComments])");
 
-            builder.Property(p => p.LastEditedBy).HasColumnType("int").IsRequired();
+            // Columns with generated value on add or update
 
             builder
                 .Property(p => p.ValidFrom)
