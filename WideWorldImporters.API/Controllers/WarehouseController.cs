@@ -7,6 +7,7 @@ using WideWorldImporters.API.Models;
 
 namespace WideWorldImporters.API.Controllers
 {
+#pragma warning disable CS1591
     [ApiController]
     [Route("api/v1/[controller]")]
     public class WarehouseController : ControllerBase
@@ -19,11 +20,27 @@ namespace WideWorldImporters.API.Controllers
             Logger = logger;
             DbContext = dbContext;
         }
+#pragma warning restore CS1591
 
         // GET
         // api/v1/Warehouse/StockItem
 
+        /// <summary>
+        /// Retrieves stock items
+        /// </summary>
+        /// <param name="pageSize">Page size</param>
+        /// <param name="pageNumber">Page number</param>
+        /// <param name="lastEditedBy">Last edit by (user id)</param>
+        /// <param name="colorID">Color id</param>
+        /// <param name="outerPackageID">Outer package id</param>
+        /// <param name="supplierID">Supplier id</param>
+        /// <param name="unitPackageID">Unit package id</param>
+        /// <returns>A response with stock items list</returns>
+        /// <response code="200">Returns the stock items list</response>
+        /// <response code="500">If there was an internal server error</response>
         [HttpGet("StockItem")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> GetStockItemsAsync(int pageSize = 10, int pageNumber = 1, int? lastEditedBy = null, int? colorID = null, int? outerPackageID = null, int? supplierID = null, int? unitPackageID = null)
         {
             Logger?.LogDebug("'{0}' has been invoked", nameof(GetStockItemsAsync));
@@ -63,7 +80,18 @@ namespace WideWorldImporters.API.Controllers
         // GET
         // api/v1/Warehouse/StockItem/5
 
+        /// <summary>
+        /// Retrieves a stock item by ID
+        /// </summary>
+        /// <param name="id">Stock item id</param>
+        /// <returns>A response with stock item</returns>
+        /// <response code="200">Returns the stock items list</response>
+        /// <response code="404">If stock item is not exists</response>
+        /// <response code="500">If there was an internal server error</response>
         [HttpGet("StockItem/{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> GetStockItemAsync(int id)
         {
             Logger?.LogDebug("'{0}' has been invoked", nameof(GetStockItemAsync));
@@ -89,7 +117,20 @@ namespace WideWorldImporters.API.Controllers
         // POST
         // api/v1/Warehouse/StockItem/
 
+        /// <summary>
+        /// Creates a new stock item
+        /// </summary>
+        /// <param name="request">Request model</param>
+        /// <returns>A response with new stock item</returns>
+        /// <response code="200">Returns the stock items list</response>
+        /// <response code="201">A response as creation of stock item</response>
+        /// <response code="400">For bad request</response>
+        /// <response code="500">If there was an internal server error</response>
         [HttpPost("StockItem")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> PostStockItemAsync([FromBody]PostStockItemsRequest request)
         {
             Logger?.LogDebug("'{0}' has been invoked", nameof(PostStockItemAsync));
@@ -133,7 +174,19 @@ namespace WideWorldImporters.API.Controllers
         // PUT
         // api/v1/Warehouse/StockItem/5
 
+        /// <summary>
+        /// Updates an existing stock item
+        /// </summary>
+        /// <param name="id">Stock item ID</param>
+        /// <param name="request">Request model</param>
+        /// <returns>A response as update stock item result</returns>
+        /// <response code="200">If stock item was updated successfully</response>
+        /// <response code="400">For bad request</response>
+        /// <response code="500">If there was an internal server error</response>
         [HttpPut("StockItem/{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> PutStockItemAsync(int id, [FromBody]PutStockItemsRequest request)
         {
             Logger?.LogDebug("'{0}' has been invoked", nameof(PutStockItemAsync));
@@ -175,7 +228,16 @@ namespace WideWorldImporters.API.Controllers
         // DELETE
         // api/v1/Warehouse/StockItem/5
 
+        /// <summary>
+        /// Deletes an existing stock item
+        /// </summary>
+        /// <param name="id">Stock item ID</param>
+        /// <returns>A response as delete stock item result</returns>
+        /// <response code="200">If stock item was deleted successfully</response>
+        /// <response code="500">If there was an internal server error</response>
         [HttpDelete("StockItem/{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> DeleteStockItemAsync(int id)
         {
             Logger?.LogDebug("'{0}' has been invoked", nameof(DeleteStockItemAsync));
