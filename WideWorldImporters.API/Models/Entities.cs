@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace WideWorldImporters.API.Models
 {
+#pragma warning disable CS1591
     public partial class StockItem
     {
         public StockItem()
@@ -150,4 +151,5 @@ namespace WideWorldImporters.API.Models
 
         public DbSet<StockItem> StockItems { get; set; }
     }
+#pragma warning restore CS1591
 }

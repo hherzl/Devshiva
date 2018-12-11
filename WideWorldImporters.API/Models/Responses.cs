@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WideWorldImporters.API.Models
 {
+#pragma warning disable CS1591
     public interface IResponse
     {
         string Message { get; set; }
@@ -123,4 +124,5 @@ namespace WideWorldImporters.API.Models
             };
         }
     }
+#pragma warning restore CS1591
 }

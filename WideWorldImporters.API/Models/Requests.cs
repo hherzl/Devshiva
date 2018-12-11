@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WideWorldImporters.API.Models
 {
+#pragma warning disable CS1591
     public class PostStockItemsRequest
     {
         [Key]
@@ -117,4 +118,5 @@ namespace WideWorldImporters.API.Models
                 ValidTo = request.ValidTo
             };
     }
+#pragma warning restore CS1591
 }
