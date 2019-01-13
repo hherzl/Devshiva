@@ -45,6 +45,34 @@ namespace WideWorldImporters.API.IntegrationTests
         {
         }
 
+        public HttpClient Client { get; }
+
+        public void Dispose()
+        {
+            Client.Dispose();
+            Server.Dispose();
+        }
+
+        protected virtual void InitializeServices(IServiceCollection services)
+        {
+            var startupAssembly = typeof(TStartup).GetTypeInfo().Assembly;
+
+            var manager = new ApplicationPartManager
+            {
+                ApplicationParts =
+                {
+                    new AssemblyPart(startupAssembly)
+                },
+                FeatureProviders =
+                {
+                    new ControllerFeatureProvider(),
+                    new ViewComponentFeatureProvider()
+                }
+            };
+
+            services.AddSingleton(manager);
+        }
+
         protected TestFixture(string relativeTargetProjectParentDir)
         {
             var startupAssembly = typeof(TStartup).GetTypeInfo().Assembly;
@@ -69,30 +97,6 @@ namespace WideWorldImporters.API.IntegrationTests
             Client.BaseAddress = new Uri("http://localhost:5001");
             Client.DefaultRequestHeaders.Accept.Clear();
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        }
-
-        public HttpClient Client { get; }
-
-        protected virtual void InitializeServices(IServiceCollection services)
-        {
-            var startupAssembly = typeof(TStartup).GetTypeInfo().Assembly;
-
-            var manager = new ApplicationPartManager();
-
-            // Add parts
-            manager.ApplicationParts.Add(new AssemblyPart(startupAssembly));
-
-            // Add providers
-            manager.FeatureProviders.Add(new ControllerFeatureProvider());
-            manager.FeatureProviders.Add(new ViewComponentFeatureProvider());
-
-            services.AddSingleton(manager);
-        }
-
-        public void Dispose()
-        {
-            Client.Dispose();
-            Server.Dispose();
         }
     }
 }
