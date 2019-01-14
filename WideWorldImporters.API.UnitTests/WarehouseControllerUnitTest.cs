@@ -50,7 +50,7 @@ namespace WideWorldImporters.API.UnitTests
             // Arrange
             var dbContext = DbContextMocker.GetWideWorldImportersDbContext(nameof(TestPostStockItemAsync));
             var controller = new WarehouseController(null, dbContext);
-            var requestModel = new PostStockItemsRequest
+            var request = new PostStockItemsRequest
             {
                 StockItemID = 100,
                 StockItemName = "USB anime flash drive - Goku",
@@ -73,7 +73,7 @@ namespace WideWorldImporters.API.UnitTests
             };
 
             // Act
-            var response = await controller.PostStockItemAsync(requestModel) as ObjectResult;
+            var response = await controller.PostStockItemAsync(request) as ObjectResult;
             var value = response.Value as ISingleResponse<StockItem>;
 
             dbContext.Dispose();
@@ -89,7 +89,7 @@ namespace WideWorldImporters.API.UnitTests
             var dbContext = DbContextMocker.GetWideWorldImportersDbContext(nameof(TestPutStockItemAsync));
             var controller = new WarehouseController(null, dbContext);
             var id = 12;
-            var requestModel = new PutStockItemsRequest
+            var request = new PutStockItemsRequest
             {
                 StockItemName = "USB food flash drive (Update)",
                 SupplierID = 12,
@@ -97,7 +97,7 @@ namespace WideWorldImporters.API.UnitTests
             };
 
             // Act
-            var response = await controller.PutStockItemAsync(id, requestModel) as ObjectResult;
+            var response = await controller.PutStockItemAsync(id, request) as ObjectResult;
             var value = response.Value as IResponse;
 
             dbContext.Dispose();
