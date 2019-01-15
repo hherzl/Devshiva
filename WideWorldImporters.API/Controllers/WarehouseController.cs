@@ -182,10 +182,12 @@ namespace WideWorldImporters.API.Controllers
         /// <returns>A response as update stock item result</returns>
         /// <response code="200">If stock item was updated successfully</response>
         /// <response code="400">For bad request</response>
+        /// <response code="404">If stock item is not exists</response>
         /// <response code="500">If there was an internal server error</response>
         [HttpPut("StockItem/{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         [ProducesResponseType(500)]
         public async Task<IActionResult> PutStockItemAsync(int id, [FromBody]PutStockItemsRequest request)
         {
@@ -234,9 +236,11 @@ namespace WideWorldImporters.API.Controllers
         /// <param name="id">Stock item ID</param>
         /// <returns>A response as delete stock item result</returns>
         /// <response code="200">If stock item was deleted successfully</response>
+        /// <response code="404">If stock item is not exists</response>
         /// <response code="500">If there was an internal server error</response>
         [HttpDelete("StockItem/{id}")]
         [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         [ProducesResponseType(500)]
         public async Task<IActionResult> DeleteStockItemAsync(int id)
         {

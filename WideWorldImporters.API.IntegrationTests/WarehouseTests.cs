@@ -20,10 +20,13 @@ namespace WideWorldImporters.API.IntegrationTests
         public async Task TestGetStockItemsAsync()
         {
             // Arrange
-            var request = "/api/v1/Warehouse/StockItem";
+            var request = new
+            {
+                Url = "/api/v1/Warehouse/StockItem"
+            };
 
             // Act
-            var response = await Client.GetAsync(request);
+            var response = await Client.GetAsync(request.Url);
 
             // Assert
             response.EnsureSuccessStatusCode();
@@ -33,10 +36,13 @@ namespace WideWorldImporters.API.IntegrationTests
         public async Task TestGetStockItemAsync()
         {
             // Arrange
-            var request = "/api/v1/Warehouse/StockItem/1";
+            var request = new
+            {
+                Url = "/api/v1/Warehouse/StockItem/1"
+            };
 
             // Act
-            var response = await Client.GetAsync(request);
+            var response = await Client.GetAsync(request.Url);
 
             // Assert
             response.EnsureSuccessStatusCode();
