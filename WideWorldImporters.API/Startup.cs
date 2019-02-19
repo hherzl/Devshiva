@@ -31,9 +31,9 @@ namespace WideWorldImporters.API
 
             // Add configuration for DbContext
             // Use connection string from appsettings.json file
-            services.AddDbContext<WideWorldImportersDbContext>(options =>
+            services.AddDbContext<WideWorldImportersDbContext>(builder =>
             {
-                options.UseSqlServer(Configuration["AppSettings:ConnectionString"]);
+                builder.UseSqlServer(Configuration["AppSettings:ConnectionString"]);
             });
 
             // Set up dependency injection for controller's logger
@@ -63,9 +63,9 @@ namespace WideWorldImporters.API
             app.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
+            app.UseSwaggerUI(options =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "WideWorldImporters API V1");
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "WideWorldImporters API V1");
             });
 
             app.UseMvc();
