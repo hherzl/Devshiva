@@ -85,8 +85,19 @@ namespace WideWorldImporters.API.Models
     public static class ResponseExtensions
     {
         public static IActionResult ToHttpResponse(this IResponse response)
+            => new ObjectResult(response)
+            {
+                StatusCode = (int)(response.DidError ? HttpStatusCode.InternalServerError : HttpStatusCode.OK)
+            };
+
+        public static IActionResult ToHttpResponse<TModel>(this ISingleResponse<TModel> response)
         {
-            var status = response.DidError ? HttpStatusCode.InternalServerError : HttpStatusCode.OK;
+            var status = HttpStatusCode.OK;
+
+            if (response.DidError)
+                status = HttpStatusCode.InternalServerError;
+            else if (response.Model == null)
+                status = HttpStatusCode.NotFound;
 
             return new ObjectResult(response)
             {
@@ -94,9 +105,9 @@ namespace WideWorldImporters.API.Models
             };
         }
 
-        public static IActionResult ToHttpResponse<TModel>(this ISingleResponse<TModel> response)
+        public static IActionResult ToHttpCreatedResponse<TModel>(this ISingleResponse<TModel> response)
         {
-            var status = HttpStatusCode.OK;
+            var status = HttpStatusCode.Created;
 
             if (response.DidError)
                 status = HttpStatusCode.InternalServerError;

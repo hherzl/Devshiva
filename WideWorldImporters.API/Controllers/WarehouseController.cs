@@ -122,12 +122,10 @@ namespace WideWorldImporters.API.Controllers
         /// </summary>
         /// <param name="request">Request model</param>
         /// <returns>A response with new stock item</returns>
-        /// <response code="200">Returns the stock items list</response>
         /// <response code="201">A response as creation of stock item</response>
         /// <response code="400">For bad request</response>
         /// <response code="500">If there was an internal server error</response>
         [HttpPost("StockItem")]
-        [ProducesResponseType(200)]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
@@ -168,7 +166,7 @@ namespace WideWorldImporters.API.Controllers
                 Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(PostStockItemAsync), ex);
             }
 
-            return response.ToHttpResponse();
+            return response.ToHttpCreatedResponse();
         }
 
         // PUT
