@@ -97,13 +97,15 @@ namespace WideWorldImporters.API.Models
             builder.Property(p => p.CustomFields).HasColumnType("nvarchar(max)");
             builder.Property(p => p.LastEditedBy).HasColumnType("int").IsRequired();
 
-            // Computed columns
+            // Columns with default value
 
             builder
                 .Property(p => p.StockItemID)
                 .HasColumnType("int")
                 .IsRequired()
-                .HasComputedColumnSql("NEXT VALUE FOR [Sequences].[StockItemID]");
+                .HasDefaultValueSql("NEXT VALUE FOR [Sequences].[StockItemID]");
+
+            // Computed columns
 
             builder
                 .Property(p => p.Tags)
