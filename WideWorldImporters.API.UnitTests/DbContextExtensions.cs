@@ -28,8 +28,8 @@ namespace WideWorldImporters.API.UnitTests
                 Tags = "[\"USB Powered\"]",
                 SearchDetails = "USB missile launcher (Green) Complete with 12 projectiles",
                 LastEditedBy = 1,
-                ValidFrom = Convert.ToDateTime("5/31/2016 11:11:00 PM"),
-                ValidTo = Convert.ToDateTime("12/31/9999 11:59:59 PM")
+                ValidFrom = new DateTime(2016, 5, 31, 23, 11, 0),
+                ValidTo = new DateTime(9999, 12, 31, 23, 59, 59)
             });
 
             dbContext.StockItems.Add(new StockItem
@@ -52,8 +52,8 @@ namespace WideWorldImporters.API.UnitTests
                 Tags = "[\"USB Powered\"]",
                 SearchDetails = "USB rocket launcher (Gray) Complete with 12 projectiles",
                 LastEditedBy = 1,
-                ValidFrom = Convert.ToDateTime("5/31/2016 11:11:00 PM"),
-                ValidTo = Convert.ToDateTime("12/31/9999 11:59:59 PM")
+                ValidFrom = new DateTime(2016, 5, 31, 23, 11, 0),
+                ValidTo = new DateTime(9999, 12, 31, 23, 59, 59)
             });
 
             dbContext.StockItems.Add(new StockItem
@@ -76,8 +76,8 @@ namespace WideWorldImporters.API.UnitTests
                 Tags = "[]",
                 SearchDetails = "Office cube periscope (Black) Need to see over your cubicle wall? This is just what's needed.",
                 LastEditedBy = 1,
-                ValidFrom = Convert.ToDateTime("5/31/2016 11:00:00 PM"),
-                ValidTo = Convert.ToDateTime("12/31/9999 11:59:59 PM")
+                ValidFrom = new DateTime(2016, 5, 31, 23, 11, 0),
+                ValidTo = new DateTime(9999, 12, 31, 23, 59, 59)
             });
 
             dbContext.StockItems.Add(new StockItem
@@ -98,8 +98,8 @@ namespace WideWorldImporters.API.UnitTests
                 Tags = "[\"32GB\",\"USB Powered\"]",
                 SearchDetails = "USB food flash drive - sushi roll ",
                 LastEditedBy = 1,
-                ValidFrom = Convert.ToDateTime("5/31/2016 11:11:00 PM"),
-                ValidTo = Convert.ToDateTime("12/31/9999 11:59:59 PM")
+                ValidFrom = new DateTime(2016, 5, 31, 23, 11, 0),
+                ValidTo = new DateTime(9999, 12, 31, 23, 59, 59)
             });
 
             dbContext.StockItems.Add(new StockItem
@@ -120,8 +120,8 @@ namespace WideWorldImporters.API.UnitTests
                 Tags = "[\"16GB\",\"USB Powered\"]",
                 SearchDetails = "USB food flash drive - hamburger ",
                 LastEditedBy = 1,
-                ValidFrom = Convert.ToDateTime("5/31/2016 11:11:00 PM"),
-                ValidTo = Convert.ToDateTime("12/31/9999 11:59:59 PM")
+                ValidFrom = new DateTime(2016, 5, 31, 23, 11, 0),
+                ValidTo = new DateTime(9999, 12, 31, 23, 59, 59)
             });
 
             dbContext.StockItems.Add(new StockItem
@@ -142,8 +142,8 @@ namespace WideWorldImporters.API.UnitTests
                 Tags = "[\"32GB\",\"USB Powered\"]",
                 SearchDetails = "USB food flash drive - hot dog ",
                 LastEditedBy = 1,
-                ValidFrom = Convert.ToDateTime("5/31/2016 11:11:00 PM"),
-                ValidTo = Convert.ToDateTime("12/31/9999 11:59:59 PM")
+                ValidFrom = new DateTime(2016, 5, 31, 23, 11, 0),
+                ValidTo = new DateTime(9999, 12, 31, 23, 59, 59)
             });
 
             dbContext.StockItems.Add(new StockItem
@@ -164,8 +164,8 @@ namespace WideWorldImporters.API.UnitTests
                 Tags = "[\"16GB\",\"USB Powered\"]",
                 SearchDetails = "USB food flash drive - pizza slice ",
                 LastEditedBy = 1,
-                ValidFrom = Convert.ToDateTime("5/31/2016 11:11:00 PM"),
-                ValidTo = Convert.ToDateTime("12/31/9999 11:59:59 PM")
+                ValidFrom = new DateTime(2016, 5, 31, 23, 11, 0),
+                ValidTo = new DateTime(9999, 12, 31, 23, 59, 59)
             });
 
             dbContext.StockItems.Add(new StockItem
@@ -186,8 +186,8 @@ namespace WideWorldImporters.API.UnitTests
                 Tags = "[\"32GB\",\"USB Powered\"]",
                 SearchDetails = "USB food flash drive - dim sum 10 drive variety pack ",
                 LastEditedBy = 1,
-                ValidFrom = Convert.ToDateTime("5/31/2016 11:11:00 PM"),
-                ValidTo = Convert.ToDateTime("12/31/9999 11:59:59 PM")
+                ValidFrom = new DateTime(2016, 5, 31, 23, 11, 0),
+                ValidTo = new DateTime(9999, 12, 31, 23, 59, 59)
             });
 
             dbContext.StockItems.Add(new StockItem
@@ -208,8 +208,8 @@ namespace WideWorldImporters.API.UnitTests
                 Tags = "[\"16GB\",\"USB Powered\"]",
                 SearchDetails = "USB food flash drive - banana ",
                 LastEditedBy = 1,
-                ValidFrom = Convert.ToDateTime("5/31/2016 11:11:00 PM"),
-                ValidTo = Convert.ToDateTime("12/31/9999 11:59:59 PM")
+                ValidFrom = new DateTime(2016, 5, 31, 23, 11, 0),
+                ValidTo = new DateTime(9999, 12, 31, 23, 59, 59)
             });
 
             dbContext.StockItems.Add(new StockItem
@@ -230,8 +230,8 @@ namespace WideWorldImporters.API.UnitTests
                 Tags = "[\"32GB\",\"USB Powered\"]",
                 SearchDetails = "USB food flash drive - chocolate bar ",
                 LastEditedBy = 1,
-                ValidFrom = Convert.ToDateTime("5/31/2016 11:11:00 PM"),
-                ValidTo = Convert.ToDateTime("12/31/9999 11:59:59 PM")
+                ValidFrom = new DateTime(2016, 5, 31, 23, 11, 0),
+                ValidTo = new DateTime(9999, 12, 31, 23, 59, 59)
             });
 
             dbContext.StockItems.Add(new StockItem
@@ -252,8 +252,8 @@ namespace WideWorldImporters.API.UnitTests
                 Tags = "[\"16GB\",\"USB Powered\"]",
                 SearchDetails = "USB food flash drive - cookie ",
                 LastEditedBy = 1,
-                ValidFrom = Convert.ToDateTime("5/31/2016 11:11:00 PM"),
-                ValidTo = Convert.ToDateTime("12/31/9999 11:59:59 PM")
+                ValidFrom = new DateTime(2016, 5, 31, 23, 11, 0),
+                ValidTo = new DateTime(9999, 12, 31, 23, 59, 59)
             });
 
             dbContext.StockItems.Add(new StockItem
@@ -274,8 +274,8 @@ namespace WideWorldImporters.API.UnitTests
                 Tags = "[\"32GB\",\"USB Powered\"]",
                 SearchDetails = "USB food flash drive - donut ",
                 LastEditedBy = 1,
-                ValidFrom = Convert.ToDateTime("5/31/2016 11:11:00 PM"),
-                ValidTo = Convert.ToDateTime("12/31/9999 11:59:59 PM")
+                ValidFrom = new DateTime(2016, 5, 31, 23, 11, 0),
+                ValidTo = new DateTime(9999, 12, 31, 23, 59, 59)
             });
 
             dbContext.SaveChanges();
