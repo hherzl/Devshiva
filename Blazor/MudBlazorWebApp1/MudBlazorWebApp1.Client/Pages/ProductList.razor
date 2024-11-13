@@ -1,0 +1,61 @@
+﻿@page "/product"
+
+@using MudBlazorWebApp1.Client.Services
+@using MudBlazorWebApp1.Client.Services.Models
+
+@inject PistachioStoreService pistachioStoreService
+
+<PageTitle>Products</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">Products</MudText>
+
+<MudButton id="loadDataButton" Variant="Variant.Filled" Color="Color.Primary" @onclick="LoadDataAsync">Load Data</MudButton>
+
+<br />
+
+@if (Model == null)
+{
+    <br />
+    <MudText Typo="Typo.h5" GutterBottom="true">There is no data.</MudText>
+}
+else
+{
+    <br />
+
+    <MudText Id="recordsLabel">@RecordsLabel</MudText>
+
+    <MudTable Items="Model" Hover="true" SortLabel="Sort By" Elevation="0" AllowUnsorted="false">
+        <HeaderContent>
+            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<ProductListModel, string?>(item=>item.Name)">Name</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<ProductListModel, string?>(item=>item.Category)">Category</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<ProductListModel, string?>(item=>item.Platform)">Platform</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<ProductListModel, object>(item=>item.UnitPrice)">Unit price</MudTableSortLabel></MudTh>
+            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<ProductListModel, object>(item=>item.ReleaseDate)">Release date</MudTableSortLabel></MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Name">@context.Name</MudTd>
+            <MudTd DataLabel="Category">@context.Category</MudTd>
+            <MudTd DataLabel="Platorm">@context.Platform</MudTd>
+            <MudTd DataLabel="UnitPrice">@context.UnitPrice.ToString("C2")</MudTd>
+            <MudTd DataLabel="ReleaseDate">@context.ReleaseDate.ToShortDateString()</MudTd>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager PageSizeOptions="new int[]{50, 100}" />
+        </PagerContent>
+    </MudTable>
+}
+
+@code {
+    private List<ProductListModel>? Model { get; set; }
+    private string? RecordsLabel { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+    }
+
+    async Task LoadDataAsync()
+    {
+        Model = await pistachioStoreService.GetProductsAsync();
+        RecordsLabel = $"Total of records: {Model?.Count}";
+    }
+}
